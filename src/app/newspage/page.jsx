@@ -19,17 +19,21 @@ const NewsPage = () => {
       // Add rate limit delay (1 second) between requests
       await delay(1000);
       
+      // const today = new Date().toISOString().split('T')[0];  // Today's date
+      // const twoDaysAgo = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];  // Two days ago 
 
       const response = await axios.get("https://newsapi.org/v2/everything", {
         params: {
-          q: 'Indian stock market OR Sensex OR Nifty OR BSE',
+          q: 'Indian stock market OR Sensex OR Nifty OR BSE OR NSE',
           apiKey: 'fa50276286ca40b9811738b00915c7a2',
           language: 'en',
           sortBy: 'publishedAt',
-          pageSize: 5,  // Limit results to 5 articles per page
+          pageSize: 6,  // Limit results to 5 articles per page
           page: pageNumber, // Set the current page
-          sources: 'the-hindu,livemint,times-of-india', // Limit results to trusted Indian news sources
-          domains: 'economictimes.indiatimes.com,livemint.com' // Limit to Indian stocks
+          // from: twoDaysAgo,  // Fetch articles from two days ago
+          // to: today,  // Up to today's date
+          sources: 'the-hindu,livemint,times-of-india,business-standard,financial-express,cnbc,financial-times,bloomberg,news18,the-economic-times,reuters,moneycontrol,ndtv', // Updated sources
+          domains: 'economictimes.indiatimes.com,livemint.com,business-standard.com,financialexpress.com,cnbc.com,moneycontrol.com,bloomberg.com,ndtv.com,reuters.com' // Updated domains
         },
       });
 
@@ -46,7 +50,7 @@ const NewsPage = () => {
         });
 
         // Check if there are more articles to load
-        setHasMore(articles.length === 5); // Only set "hasMore" to true if exactly 5 articles are fetched
+        setHasMore(articles.length === 6); // Only set "hasMore" to true if exactly 5 articles are fetched
       } else {
         setError("No articles found.");
         setHasMore(false);
