@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa'; // Hamburger and close icons
 
+
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -42,7 +43,7 @@ export default function Header() {
         <Link href="/" className="text-white hover:text-gray-300 hover:underline">Financial Planning</Link>
         {/* <Link href="/" className="text-white hover:text-gray-300">Help Hub</Link> */}
         <Link href="/newspage" className="text-white hover:text-gray-300 hover:underline">News</Link>
-        <Link href="/" className="text-white hover:text-gray-300 hover:underline">About Us</Link>
+        <Link href="/aboutus" className="text-white hover:text-gray-300 hover:underline">About Us</Link>
       </nav>
 
       {/* Mobile Nav */}
