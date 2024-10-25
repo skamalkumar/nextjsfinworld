@@ -1,8 +1,9 @@
-'use client'
+'use client';
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Header from "@/components/Header";
+import { NextSeo } from "next-seo";
 
 const NewsPage = () => {
   const [news, setNews] = useState([]); // Stores the articles
@@ -16,11 +17,7 @@ const NewsPage = () => {
 
   const fetchNews = async (pageNumber = 1) => {
     try {
-      // Add rate limit delay (1 second) between requests
       await delay(1000);
-      
-      // const today = new Date().toISOString().split('T')[0];  // Today's date
-      // const twoDaysAgo = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];  // Two days ago 
 
       const response = await axios.get("https://newsapi.org/v2/everything", {
         params: {
@@ -28,12 +25,10 @@ const NewsPage = () => {
           apiKey: 'fa50276286ca40b9811738b00915c7a2',
           language: 'en',
           sortBy: 'publishedAt',
-          pageSize: 6,  // Limit results to 5 articles per page
-          page: pageNumber, // Set the current page
-          // from: twoDaysAgo,  // Fetch articles from two days ago
-          // to: today,  // Up to today's date
-          sources: 'the-hindu,livemint,times-of-india,business-standard,financial-express,cnbc,financial-times,bloomberg,news18,the-economic-times,reuters,moneycontrol,ndtv', // Updated sources
-          domains: 'economictimes.indiatimes.com,livemint.com,business-standard.com,financialexpress.com,cnbc.com,moneycontrol.com,bloomberg.com,ndtv.com,reuters.com' // Updated domains
+          pageSize: 6,
+          page: pageNumber,
+          sources: 'the-hindu,livemint,times-of-india,business-standard,financial-express,cnbc,financial-times,bloomberg,news18,the-economic-times,reuters,moneycontrol,ndtv',
+          domains: 'economictimes.indiatimes.com,livemint.com,business-standard.com,financialexpress.com,cnbc.com,moneycontrol.com,bloomberg.com,ndtv.com,reuters.com'
         },
       });
 
@@ -41,16 +36,12 @@ const NewsPage = () => {
 
       if (articles.length > 0) {
         setNews((prevNews) => {
-          // If we're on the first page, just replace the existing news
           if (pageNumber === 1) {
             return articles;
           }
-          // Append new articles to the existing ones
           return [...prevNews, ...articles];
         });
-
-        // Check if there are more articles to load
-        setHasMore(articles.length === 6); // Only set "hasMore" to true if exactly 5 articles are fetched
+        setHasMore(articles.length === 6);
       } else {
         setError("No articles found.");
         setHasMore(false);
@@ -64,16 +55,28 @@ const NewsPage = () => {
   };
 
   useEffect(() => {
-    fetchNews(page); // Fetch news on initial load or page change
+    fetchNews(page);
   }, [page]);
 
   const handleLoadMore = () => {
-    setPage((prevPage) => prevPage + 1); // Increment the page number to load more articles
+    setPage((prevPage) => prevPage + 1);
   };
 
   return (
     <>
       <Header />
+      <NextSeo
+        title="Latest Finance News - Indian Stock Market Updates"
+        description="Stay updated with the latest finance news on the Indian stock market, Sensex, Nifty, and other major financial topics."
+        canonical="https://webkraft.netlify.app/blog"
+        openGraph={{
+          url: "https://webkraft.netlify.app/blog",
+          title: "Latest Finance News - Indian Stock Market Updates",
+          description: "Stay updated with the latest finance news on the Indian stock market, Sensex, Nifty, and other major financial topics.",
+          images: news[0] && news[0].urlToImage ? [{ url: news[0].urlToImage }] : [],
+          site_name: "WebKraft"
+        }}
+      />
       <div className="min-h-screen rounded-md m-3 flex flex-col items-center justify-center bg-gradient-to-r from-green-400 to-blue-500 p-4">
         <h1 className="text-3xl font-bold mb-6 text-center">Latest Finance News</h1>
 
@@ -88,6 +91,16 @@ const NewsPage = () => {
                 key={index}
                 className="bg-green-300 bg-opacity-80 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200"
               >
+                <NextSeo
+                  openGraph={{
+                    url: article.url,
+                    title: article.title,
+                    description: article.description,
+                    images: article.urlToImage ? [{ url: article.urlToImage }] : [],
+                    site_name: article.source.name
+                  }}
+                  canonical={article.url}
+                />
                 {article.urlToImage && (
                   <img
                     src={article.urlToImage}
