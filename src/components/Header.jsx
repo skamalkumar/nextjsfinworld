@@ -1,8 +1,9 @@
-'use client'
+"use client";
+
 import Link from 'next/link';
 import { useState } from 'react';
-import { FaBars, FaTimes } from 'react-icons/fa'; // Hamburger and close icons
-
+import { FaBars, FaTimes } from 'react-icons/fa';
+import AuthButton from './AuthButton'; // Import the AuthButton component
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,7 +42,6 @@ export default function Header() {
         <Link href="/" className="text-white hover:text-gray-300 hover:underline">Home</Link>
         <Link href="/" className="text-white hover:text-gray-300 hover:underline">Screeners</Link>
         <Link href="/" className="text-white hover:text-gray-300 hover:underline">Financial Planning</Link>
-        {/* <Link href="/" className="text-white hover:text-gray-300">Help Hub</Link> */}
         <Link href="/newspage" className="text-white hover:text-gray-300 hover:underline">News</Link>
         <Link href="/aboutus" className="text-white hover:text-gray-300 hover:underline">About Us</Link>
         <Link href="/contactus" className="text-white hover:text-gray-300 hover:underline">Contact Us</Link>
@@ -58,8 +58,9 @@ export default function Header() {
         </nav>
       )}
 
+      {/* Right-side Auth Button */}
       <div className="hidden md:flex items-center space-x-4">
-        <Link href="/" className="text-white hover:text-gray-300 hover:underline">Log In</Link>
+        <AuthButton /> {/* Replace Log In link with AuthButton */}
         <button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-400">
           Start Now
         </button>
