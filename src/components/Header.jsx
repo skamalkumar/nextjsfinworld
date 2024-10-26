@@ -54,16 +54,20 @@ export default function Header() {
           <Link href="/" className="text-white hover:text-gray-300 hover:underline" onClick={toggleMenu}>Screeners</Link>
           <Link href="/" className="text-white hover:text-gray-300 hover:underline" onClick={toggleMenu}>Financial Planning</Link>
           <Link href="/newspage" className="text-white hover:text-gray-300 hover:underline" onClick={toggleMenu}>News</Link>
-          <Link href="/" className="text-white hover:text-gray-300 hover:underline" onClick={toggleMenu}>About Us</Link>
+          <Link href="/aboutus" className="text-white hover:text-gray-300 hover:underline" onClick={toggleMenu}>About Us</Link>
+          <Link href="/contactus" className="text-white hover:text-gray-300 hover:underline" onClick={toggleMenu}>Contact Us</Link>
+          <div className="hidden md:flex items-center space-x-4">
+              <AuthButton /> {/* Replace Log In link with AuthButton */}
+        </div>
         </nav>
       )}
 
       {/* Right-side Auth Button */}
       <div className="hidden md:flex items-center space-x-4">
         <AuthButton /> {/* Replace Log In link with AuthButton */}
-        <button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-400">
+        {/* <button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-400">
           Start Now
-        </button>
+        </button> */}
       </div>
     </header>
   );
