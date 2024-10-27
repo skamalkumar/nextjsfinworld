@@ -1,8 +1,9 @@
+
 import Image from "next/image";
 import Head from 'next/head';
-import Header from '@/components/Header';
 import HeroSection from '../components/HeroSection';
 import { AuthProvider } from "../../context/AuthContext";
+import Homepage from '@/app/home/page';
 
 export default function Home() {
   return (
@@ -11,8 +12,8 @@ export default function Home() {
       <Head>
         <title>FinWorld - Wealth Management</title>
       </Head>
-      <Header />
       <HeroSection />
+      <Homepage/>
       </AuthProvider>
     </div>
   );

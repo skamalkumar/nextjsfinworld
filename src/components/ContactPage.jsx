@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import { NextSeo } from "next-seo";
-import Header from "@/components/Header";
 import { db } from '../../firebase/firebase'
 import { collection, addDoc } from "firebase/firestore";
 
@@ -54,8 +53,7 @@ const ContactPage = () => {
           site_name: "Your Website Name",
         }}
       />
-      <Header />
-      <div className="min-h-screen bg-gray-100 p-6 flex flex-col justify-center items-center">
+      <div className="min-h-screen bg-gray-100 p-6 flex flex-col justify-center items-center ">
         <h1 className="text-3xl font-bold mb-4">Contact Us</h1>
         <p className="mb-6 text-gray-600">Have questions? Fill out the form below to get in touch with us.</p>
         

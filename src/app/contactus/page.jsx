@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../../../firebase/firebase';
-import Header from '@/components/Header';
 
 const ConsultationForm = () => {
   const [name, setName] = useState('');
@@ -36,9 +35,8 @@ const ConsultationForm = () => {
 
   return (
     <>
-      <Header />
       
-      <div className="min-h-screen bg-gradient-to-r from-green-400 to-blue-500 p-4 flex flex-col items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-r from-green-400 to-blue-500 p-4 flex flex-col items-center justify-center rounded-md mx-4 my-2">
         <div className="max-w-[960px] mx-auto bg-white rounded-lg shadow-md p-6 sm:p-10 md:p-16">
           
           {/* Show heading and form only if there is no success message */}

@@ -64,7 +64,6 @@ const NewsPage = () => {
 
   return (
     <>
-      <Header />
       <NextSeo
         title="Latest Finance News - Indian Stock Market Updates"
         description="Stay updated with the latest finance news on the Indian stock market, Sensex, Nifty, and other major financial topics."

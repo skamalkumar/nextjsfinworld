@@ -4,7 +4,6 @@ import Header from '@/components/Header';
 const AboutUs = () => {
   return (
     <>
-      <Header />
       <div className="min-h-screen rounded-md m-3 flex flex-col items-center justify-center bg-gradient-to-r from-green-400 to-blue-500 p-4">
         {/* Header Section */}
         <header className="w-full bg-blue-900 p-6 text-white text-center shadow-md">
