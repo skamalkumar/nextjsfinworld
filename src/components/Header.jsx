@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import AuthButton from './AuthButton'; // Import the AuthButton component
+import FinancialPlanningDropdown from './financialplanningdropdown';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,7 +42,8 @@ export default function Header() {
       <nav className="hidden md:flex space-x-4">
         <Link href="/" className="text-white hover:text-gray-300 hover:underline">Home</Link>
         <Link href="/" className="text-white hover:text-gray-300 hover:underline">Screeners</Link>
-        <Link href="/" className="text-white hover:text-gray-300 hover:underline">Financial Planning</Link>
+        <FinancialPlanningDropdown/>
+        {/* <Link href="/FinancialPlanningDropdown" className="text-white hover:text-gray-300 hover:underline">Financial Planning</Link> */}
         <Link href="/newspage" className="text-white hover:text-gray-300 hover:underline">News</Link>
         <Link href="/aboutus" className="text-white hover:text-gray-300 hover:underline">About Us</Link>
         <Link href="/contactus" className="text-white hover:text-gray-300 hover:underline">Contact Us</Link>

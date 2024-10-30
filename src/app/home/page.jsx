@@ -1,15 +1,14 @@
-'use client'
+'use client';
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
 
 const YOUTUBE_API_KEY = 'AIzaSyBb2CXSFB4DVIbtY3KLLOPU_5mIGdS5g4g';
 const CHANNEL_ID = 'UC4WbdkC-Nn0svTmXhUir0DQ'; // Replace with your YouTube channel ID
 
-const fetchYoutubeVideos = async () => {
+const fetchYoutubeVideos = async (maxResults) => {
   try {
     const response = await axios.get(
-      `https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=6`
+      `https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=${maxResults}`
     );
     return response.data.items;
   } catch (error) {
@@ -20,20 +19,24 @@ const fetchYoutubeVideos = async () => {
 
 function Homepage() {
   const [videos, setVideos] = useState([]);
+  const [displayCount, setDisplayCount] = useState(6); // Initial videos to display
 
   useEffect(() => {
     const getVideos = async () => {
-      const videoData = await fetchYoutubeVideos();
+      const videoData = await fetchYoutubeVideos(displayCount);
       setVideos(videoData);
     };
     getVideos();
-  }, []);
+  }, [displayCount]);
+
+  const handleShowMore = async () => {
+    const newDisplayCount = displayCount + 6; // Increment by 6 videos
+    setDisplayCount(newDisplayCount);
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
       <main className="flex-grow">
-        
-
         {/* New section for YouTube videos */}
         <section className="bg-gradient-to-r from-blue-500 to-green-500 text-white py-20 flex items-center justify-center rounded-lg mx-4 my-2 shadow-lg">
           <div className="container mx-auto">
@@ -67,8 +70,16 @@ function Homepage() {
                 </div>
               ))}
             </div>
+            <div className="flex justify-center mt-6">
+              <button 
+                onClick={handleShowMore} 
+                className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+              >
+                Show More
+              </button>
+            </div>
           </div>
-          </section>
+        </section>
       </main>
     </div>
   );

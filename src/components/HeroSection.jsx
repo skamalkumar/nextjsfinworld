@@ -9,7 +9,7 @@ export default function HeroSection() {
           </button>
         </div>
         <div className="w-1/2">
-          <img src="/hero-image.jpg" alt="Wealth management dashboard" className="rounded-lg shadow-lg" />
+          <img src="/" alt="Wealth management dashboard" className="rounded-lg shadow-lg" />
         </div>
       </section>
     );
