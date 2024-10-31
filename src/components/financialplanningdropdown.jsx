@@ -113,7 +113,7 @@ const FinancialPlanningDropdown = () => {
               >
                 <li>
                   <Link
-                    href="/insurance-planning/accident"
+                    href="/financialplanning/insuranceplanning/accidentinsurance"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white rounded-md"
                   >
                     Accident Insurance
@@ -121,7 +121,7 @@ const FinancialPlanningDropdown = () => {
                 </li>
                 <li>
                   <Link
-                    href="/insurance-planning/life"
+                    href="/financialplanning/insuranceplanning/lifeinsurance"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white rounded-md"
                   >
                     Life Insurance
@@ -129,7 +129,7 @@ const FinancialPlanningDropdown = () => {
                 </li>
                 <li>
                   <Link
-                    href="/insurance-planning/health"
+                    href="/financialplanning/insuranceplanning/healthinsurance"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white rounded-md"
                   >
                     Health Insurance
@@ -137,7 +137,7 @@ const FinancialPlanningDropdown = () => {
                 </li>
                 <li>
                   <Link
-                    href="/insurance-planning/property"
+                    href="/financialplanning/insuranceplanning/propertyinsurance"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white rounded-md"
                   >
                     Property Insurance
@@ -149,7 +149,7 @@ const FinancialPlanningDropdown = () => {
 
           <li className="mb-1">
             <Link
-              href="/investment-planning"
+              href="/financialplanning/investmentplanning"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white rounded-md"
             >
               Investment Planning

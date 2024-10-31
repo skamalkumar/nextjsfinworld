@@ -1,4 +1,3 @@
-// src/components/WillPlanning.jsx
 'use client';
 import React, { useState } from "react";
 
