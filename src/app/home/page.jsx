@@ -37,7 +37,50 @@ function Homepage() {
   return (
     <div className="min-h-screen flex flex-col">
       <main className="flex-grow">
-        {/* New section for YouTube videos */}
+        {/* Section for Financial Planning Cards */}
+        <section className="py-12 bg-gray-200">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold mb-8 text-gray-800 text-center">
+              Financial Planning for All Ages
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                { 
+                  title: "Family Guard", 
+                  description: "A safety net for you and your family in times of need, offering financial protection and security. ",
+                  image: "/images/financialplanning/family_guard.webp", 
+                  // link: "https://yourwebsite.com/family_guard.webp"
+                },
+                { 
+                  title: "Dream Builders", 
+                  description: "Invest today to make your dreams come true tomorrow, from education to retirement goals.",
+                  image: "/images/financialplanning/Dream_Builders.webp", 
+                  link: "https://yourwebsite.com/dream-builders"
+                },
+                { 
+                  title: "Clever Saving", 
+                  description: "Optimize your finances by saving wisely and planning tax strategies to keep more of what you earn.",
+                  image: "/images/financialplanning/Clever_Saving.webp", 
+                  link: "https://yourwebsite.com/clever-saving"
+                },
+                { 
+                  title: "Future Plans", 
+                  description: "Ensure your family’s future is secure by planning for tomorrow’s needs today.",
+                  image: "future_plans_image_url", 
+                  link: "https://yourwebsite.com/future-plans"
+                }
+              ].map((card, index) => (
+                <div key={index} className="bg-white rounded-lg shadow-md p-6 text-center">
+                  <img src={card.image} alt={card.title} className="w-full h-32 object-cover rounded-lg mb-4" />
+                  <h3 className="text-xl font-semibold mb-4 text-blue-700">{card.title}</h3>
+                  <p className="text-gray-600 mb-4">{card.description}<a href={card.link} target="_blank" rel="noopener noreferrer" className="text-blue-500 font-bold hover:underline">Know More</a></p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Existing section for YouTube videos */}
         <section className="bg-gradient-to-r from-blue-500 to-green-500 text-white py-20 flex items-center justify-center rounded-lg mx-4 my-2 shadow-lg">
           <div className="container mx-auto">
             <h2 className="text-3xl font-bold mb-8 text-gray-800 text-center">
