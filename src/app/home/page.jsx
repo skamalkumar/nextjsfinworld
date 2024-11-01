@@ -66,7 +66,7 @@ function Homepage() {
                 { 
                   title: "Future Plans", 
                   description: "Ensure your family’s future is secure by planning for tomorrow’s needs today.",
-                  image: "future_plans_image_url", 
+                  image: "/images/financialplanning/future_plans.jpg", 
                   link: "https://yourwebsite.com/future-plans"
                 }
               ].map((card, index) => (
