@@ -59,7 +59,7 @@ function Homepage() {
                 },
                 { 
                   title: "Clever Saving", 
-                  description: "Optimize your finances by saving wisely and planning tax strategies to keep more of what you earn.",
+                  description: "Optimize your finances by saving wisely and planning tax to keep more of what you earn.",
                   image: "/images/financialplanning/Clever_Saving.webp", 
                   link: "https://yourwebsite.com/clever-saving"
                 },
