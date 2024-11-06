@@ -35,11 +35,9 @@ const ConsultationForm = () => {
 
   return (
     <>
-      
       <div className="min-h-screen bg-gradient-to-r from-green-400 to-blue-500 p-4 flex flex-col items-center justify-center rounded-md mx-4 my-2">
         <div className="max-w-[960px] mx-auto bg-white rounded-lg shadow-md p-6 sm:p-10 md:p-16">
           
-          {/* Show heading and form only if there is no success message */}
           {!successMessage ? (
             <>
               <h2 className="text-3xl font-bold mb-6 text-center">Book a Consultation</h2>
@@ -87,6 +85,26 @@ const ConsultationForm = () => {
           ) : (
             <p className="text-green-600 mt-4 text-center">{successMessage}</p>
           )}
+
+          {/* Address Section with Google Maps Embed */}
+          <div className="mt-8 text-center">
+            <h3 className="text-2xl font-semibold">Our Address</h3>
+            <p className="text-gray-600 mt-2">
+              3rd Floor, 86-90, Paul Street, London, England, United Kingdom, EC2A 4NE
+            </p>
+            <div className="mt-4">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3158.1826810162626!2d-0.08493538468359487!3d51.523263579636535!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761cb2a5ae6e03%3A0xbef1d71b1c5b1aa!2s86-90%20Paul%20St%2C%20London%20EC2A%204NE%2C%20UK!5e0!3m2!1sen!2sus!4v1699214905823!5m2!1sen!2sus"
+                width="100%"
+                height="300"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                title="Google Maps Location"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+          </div>
         </div>
       </div>
     </>
