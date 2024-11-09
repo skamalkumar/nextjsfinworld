@@ -41,7 +41,7 @@ export default function Header() {
       {/* Desktop Nav */}
       <nav className="hidden md:flex space-x-4">
         <Link href="/" className="text-white hover:text-gray-300 hover:underline">Home</Link>
-        <Link href="/screener" className="text-white hover:text-gray-300 hover:underline">Screeners</Link>
+        <Link href="/blogpostgit" className="text-white hover:text-gray-300 hover:underline">Rephrase</Link>
         <FinancialPlanningDropdown/>
         {/* <Link href="/FinancialPlanningDropdown" className="text-white hover:text-gray-300 hover:underline">Financial Planning</Link> */}
         <Link href="/newspage" className="text-white hover:text-gray-300 hover:underline">News</Link>
