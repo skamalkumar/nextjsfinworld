@@ -5,7 +5,6 @@ const GITHUB_USERNAME = 'skamalkumar';
 const REPO_NAME = 'finworldarticles';
 const BRANCH = 'main';
 
-// Add your GitHub Personal Access Token here if the repository is private
 const GITHUB_TOKEN = process.env.NEXT_PUBLIC_GITHUB_TOKEN || '';
 
 const getHeaders = () => {
@@ -18,13 +17,9 @@ const getHeaders = () => {
   return headers;
 };
 
-// Utility function to check if image exists
 const checkImageExists = async (url, headers) => {
   try {
-    const response = await fetch(url, { 
-      method: 'HEAD', 
-      headers 
-    });
+    const response = await fetch(url, { method: 'HEAD', headers });
     return response.ok;
   } catch (error) {
     console.error('Error checking image:', error);
@@ -38,95 +33,73 @@ export const usePosts = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const verifyRepository = async () => {
-      const repoUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}`;
-      const response = await fetch(repoUrl, { headers: getHeaders() });
-      
-      if (!response.ok) {
-        throw new Error(`Repository verification failed: ${response.status}. 
-          Please check:
-          1. Repository exists at ${repoUrl}
-          2. Repository is public or token has correct permissions
-          3. Repository name and username are correct`);
-      }
-      
-      return await response.json();
-    };
-
     const fetchPosts = async () => {
       try {
-        // First verify repository access
-        await verifyRepository();
-
         const articlesUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/content/articles?ref=${BRANCH}`;
-        console.log('Fetching articles from:', articlesUrl);
-
         const articlesResponse = await fetch(articlesUrl, { headers: getHeaders() });
-        
+
         if (!articlesResponse.ok) {
-          throw new Error(`
-            Failed to fetch articles directory. Status: ${articlesResponse.status}
-            Please verify:
-            1. The 'content/articles' directory exists in your repository
-            2. The directory path is exactly 'content/articles' (case sensitive)
-            3. The directory is not empty
-            URL attempted: ${articlesUrl}
-          `);
+          throw new Error(`Failed to fetch articles. Status: ${articlesResponse.status}`);
         }
 
         const articles = await articlesResponse.json();
-        console.log('Articles found:', articles);
-
-        if (!Array.isArray(articles)) {
-          throw new Error(`Expected an array of articles but got: ${typeof articles}`);
-        }
+        console.log('Fetched articles:', articles);
 
         const postsData = await Promise.all(
           articles
-            .filter(article => article.name.endsWith('.md'))
+            .filter((article) => {
+              const isMarkdown = article.name.endsWith('.md');
+              console.log(`Checking article ${article.name} - Is Markdown: ${isMarkdown}`);
+              return isMarkdown;
+            })
             .map(async (article) => {
+              console.log(`Processing article: ${article.name}`);
+              
+              if (!article.download_url) {
+                console.warn(`Skipping article ${article.name}: No download URL.`);
+                return null;
+              }
+
               try {
-                if (!article.download_url) {
-                  console.warn(`No download URL for ${article.name}`);
-                  return null;
-                }
-
-                const contentResponse = await fetch(article.download_url, { 
-                  headers: getHeaders() 
-                });
-                
+                const contentResponse = await fetch(article.download_url, { headers: getHeaders() });
                 if (!contentResponse.ok) {
-                  console.warn(`Failed to fetch content for ${article.name}`);
+                  console.warn(`Skipping article ${article.name}: Failed to fetch content.`);
                   return null;
                 }
-
                 const content = await contentResponse.text();
-                
-                // Construct image URL for .webp format
-                const imageName = article.name.replace('.md', '.webp');
-                const imageURL = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${REPO_NAME}/${BRANCH}/content/images/${encodeURIComponent(imageName)}`;
+                console.log(`Content fetched for ${article.name}`);
 
-                // Verify if the image exists
-                const imageExists = await checkImageExists(imageURL, getHeaders());
-                
+                const imageName = article.name.replace('.md', '');
+                const webpImageURL = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${REPO_NAME}/${BRANCH}/content/images/${encodeURIComponent(imageName)}.webp`;
+                const jpgImageURL = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${REPO_NAME}/${BRANCH}/content/images/${encodeURIComponent(imageName)}.jpg`;
+
+                const imageURL = await checkImageExists(webpImageURL, getHeaders()) ? webpImageURL :
+                                  await checkImageExists(jpgImageURL, getHeaders()) ? jpgImageURL : null;
+                if (!imageURL) {
+                  console.warn(`No image found for ${article.name}`);
+                } else {
+                  console.log(`Image found for ${article.name}: ${imageURL}`);
+                }
+
                 return {
+                  id: article.sha,
                   title: article.name.replace('.md', ''),
                   content,
-                  imageURL: imageExists ? imageURL : null,
-                  path: article.path,
-                  sha: article.sha
+                  imageURL,
                 };
-              } catch (error) {
-                console.error(`Error processing article ${article.name}:`, error);
+              } catch (innerError) {
+                console.error(`Error processing article ${article.name}:`, innerError);
                 return null;
               }
             })
         );
 
-        setPosts(postsData.filter(Boolean));
-      } catch (error) {
-        console.error('Error in fetchPosts:', error);
-        setError(error.message);
+        const validPosts = postsData.filter(Boolean);
+        console.log('Posts set in state:', validPosts); // Final check on valid posts
+        setPosts(validPosts);
+      } catch (outerError) {
+        console.error('Error fetching posts:', outerError);
+        setError(outerError.message);
       } finally {
         setLoading(false);
       }
@@ -137,6 +110,7 @@ export const usePosts = () => {
 
   return { posts, loading, error };
 };
+
 
 
 
