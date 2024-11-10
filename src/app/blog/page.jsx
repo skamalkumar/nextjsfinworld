@@ -14,19 +14,40 @@ const BlogPage = () => {
         const data = await response.json();
     
         if (Array.isArray(data)) {
-          const postFiles = data.filter(item => item.name.endsWith('.html')); // Fetch only HTML files
+          const postFiles = data.filter(item => item.name.endsWith('.html'));
     
-          // Fetch content for each post using the download_url
           const postsData = await Promise.all(postFiles.map(async (post) => {
             const postResponse = await fetch(post.download_url);
             const postContent = await postResponse.text();
+    
+            // Construct potential image URLs with different extensions
+            const baseImageName = post.name.replace('.html', '');
+            const extensions = ['.webp', '.jpg', '.png'];
+            let imageUrl = null;
+    
+            for (const ext of extensions) {
+              const encodedImageFileName = encodeURIComponent(baseImageName + ext);
+              const potentialUrl = `https://raw.githubusercontent.com/skamalkumar/finworldarticles/main/content/images/${encodedImageFileName}`;
+    
+              try {
+                const imageResponse = await fetch(potentialUrl);
+                if (imageResponse.ok) { // If image is found, use this URL
+                  imageUrl = potentialUrl;
+                  break;
+                }
+              } catch (error) {
+                console.error(`Error checking image at: ${potentialUrl}`, error);
+              }
+            }
+    
             return {
-              title: post.name.replace('.html', ''),
+              title: baseImageName,
               content: postContent,
+              imageUrl,
             };
           }));
     
-          setPosts(postsData); // Store the posts with content
+          setPosts(postsData);
         } else {
           console.error('Error: Data is not an array', data);
         }
@@ -36,6 +57,7 @@ const BlogPage = () => {
         setLoading(false);
       }
     };
+   
 
     fetchPosts();
   }, []);
@@ -60,13 +82,16 @@ const BlogPage = () => {
 
 const PostCard = ({ post }) => (
   <div className="bg-white rounded-lg shadow-md overflow-hidden transition-shadow duration-300 hover:shadow-lg">
+    {post.imageUrl && (
+      <img src={post.imageUrl} alt={`${post.title} image`} className="w-full h-48 object-cover" />
+    )}
     <div className="p-6">
       <h2 className="text-xl font-bold mb-2">{post.title}</h2>
       <p className="text-gray-600">
-        {post.content || `${post.content.substring(0, 100)}...`}
+        {post.content.substring(0, 100)}...
       </p>
       <Link 
-        href={`/blog/${post.title}`} // Link to the individual blog post
+        href={`/blog/${post.title}`}
         className="inline-block text-blue-500 font-semibold mt-4 hover:text-blue-600"
       >
         Read More

@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
@@ -8,15 +8,34 @@ const BlogPost = () => {
   const params = useParams();
   const { slug } = params;
   const [postContent, setPostContent] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
+        // Fetch post content
         const response = await fetch(`https://api.github.com/repos/skamalkumar/finworldarticles/contents/content/articles/${slug}.html`);
         const postData = await response.json();
-        const text = await fetch(postData.download_url).then(res => res.text()); // Get HTML content
+        const text = await fetch(postData.download_url).then(res => res.text());
         setPostContent(text);
+
+        // Try to find an image with different extensions
+        const extensions = ['.webp', '.jpg', '.png'];
+        for (const ext of extensions) {
+          const formattedSlug = decodeURIComponent(slug); // Decode the slug for correct formatting
+          const potentialUrl = `https://raw.githubusercontent.com/skamalkumar/finworldarticles/main/content/images/${formattedSlug}${ext}`;
+
+          try {
+            const imageResponse = await fetch(potentialUrl);
+            if (imageResponse.ok) {
+              setImageUrl(potentialUrl);
+              break;
+            }
+          } catch (error) {
+            console.error(`Error checking image at: ${potentialUrl}`, error);
+          }
+        }
       } catch (error) {
         console.error('Error fetching post:', error);
       } finally {
@@ -43,16 +62,30 @@ const BlogPost = () => {
   return (
     <article className="max-w-4xl mx-auto p-6">
       <Head>
-        <title>{slug} - Your Website Name</title>
-        <meta name="description" content={slug} />
+        <title>{decodeURIComponent(slug)} - Your Website Name</title>
+        <meta name="description" content={decodeURIComponent(slug)} />
       </Head>
-      <h1 className="text-3xl font-bold mb-4">{slug}</h1>
-      <div className="prose max-w-none text-gray-700" dangerouslySetInnerHTML={{ __html: postContent }} />
-      <div className="mt-8">
+      
+      <header>
+        <h1 className="text-3xl font-bold mb-4">{decodeURIComponent(slug)}</h1>
+        {imageUrl && (
+          <img 
+            src={imageUrl} 
+            alt={decodeURIComponent(slug)} 
+            className="mb-4 mx-auto w-full max-w-md h-auto rounded-md shadow-sm" 
+          />
+        )}
+      </header>
+
+      <section className="prose max-w-none text-gray-700">
+        <div dangerouslySetInnerHTML={{ __html: postContent }} />
+      </section>
+      
+      <footer className="mt-8">
         <Link href="/blog" className="text-blue-500 hover:underline">
           ← Back to Blog
         </Link>
-      </div>
+      </footer>
     </article>
   );
 };
