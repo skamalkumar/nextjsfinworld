@@ -24,7 +24,7 @@ const BlogPost = () => {
           // Decode HTML content from Base64 using TextDecoder for UTF-8
           const contentArray = Uint8Array.from(atob(postData.content), (c) => c.charCodeAt(0));
           const content = new TextDecoder("utf-8").decode(contentArray);
-          console.log("Decoded HTML Content:", content); // Log for debugging
+          // console.log("Decoded HTML Content:", content); // Log for debugging
           setPostContent(content);
         } else {
           console.error("Unexpected response format:", postData);
@@ -33,8 +33,8 @@ const BlogPost = () => {
         // Check for an image with different extensions
         const extensions = ['.webp', '.jpg', '.png'];
         for (const ext of extensions) {
-          const formattedSlug = decodeURIComponent(slug);
-          const potentialUrl = `https://raw.githubusercontent.com/skamalkumar/finworldarticles/main/content/images/${formattedSlug}${ext}`;
+          // const formattedSlug = decodeURIComponent(slug);
+          const potentialUrl = `https://raw.githubusercontent.com/skamalkumar/finworldarticles/main/content/images/${slug}${ext}`;
 
           const imageResponse = await fetch(potentialUrl);
           if (imageResponse.ok) {
