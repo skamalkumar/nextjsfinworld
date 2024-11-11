@@ -12,23 +12,28 @@ const BlogPage = () => {
       try {
         const response = await fetch('https://api.github.com/repos/skamalkumar/finworldarticles/contents/content/articles');
         const data = await response.json();
-    
+
         if (Array.isArray(data)) {
           const postFiles = data.filter(item => item.name.endsWith('.html'));
-    
+
           const postsData = await Promise.all(postFiles.map(async (post) => {
             const postResponse = await fetch(post.download_url);
             const postContent = await postResponse.text();
-    
+
+            // Parse the HTML content to extract text (using DOMParser)
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(postContent, 'text/html');
+            const articleText = doc.body.textContent || doc.body.innerText;
+
             // Construct potential image URLs with different extensions
             const baseImageName = post.name.replace('.html', '');
             const extensions = ['.webp', '.jpg', '.png'];
             let imageUrl = null;
-    
+
             for (const ext of extensions) {
               const encodedImageFileName = encodeURIComponent(baseImageName + ext);
               const potentialUrl = `https://raw.githubusercontent.com/skamalkumar/finworldarticles/main/content/images/${encodedImageFileName}`;
-    
+
               try {
                 const imageResponse = await fetch(potentialUrl);
                 if (imageResponse.ok) { // If image is found, use this URL
@@ -39,14 +44,14 @@ const BlogPage = () => {
                 console.error(`Error checking image at: ${potentialUrl}`, error);
               }
             }
-    
+
             return {
               title: baseImageName,
-              content: postContent,
+              content: articleText,  // Use extracted text content
               imageUrl,
             };
           }));
-    
+
           setPosts(postsData);
         } else {
           console.error('Error: Data is not an array', data);
@@ -57,7 +62,6 @@ const BlogPage = () => {
         setLoading(false);
       }
     };
-   
 
     fetchPosts();
   }, []);

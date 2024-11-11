@@ -14,26 +14,32 @@ const BlogPost = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        // Fetch post content
-        const response = await fetch(`https://api.github.com/repos/skamalkumar/finworldarticles/contents/content/articles/${slug}.html`);
+        // Fetch post content from GitHub
+        const response = await fetch(
+          `https://api.github.com/repos/skamalkumar/finworldarticles/contents/content/articles/${slug}.html`
+        );
         const postData = await response.json();
-        const text = await fetch(postData.download_url).then(res => res.text());
-        setPostContent(text);
 
-        // Try to find an image with different extensions
+        if (postData.content) {
+          // Decode HTML content from Base64 using TextDecoder for UTF-8
+          const contentArray = Uint8Array.from(atob(postData.content), (c) => c.charCodeAt(0));
+          const content = new TextDecoder("utf-8").decode(contentArray);
+          console.log("Decoded HTML Content:", content); // Log for debugging
+          setPostContent(content);
+        } else {
+          console.error("Unexpected response format:", postData);
+        }
+
+        // Check for an image with different extensions
         const extensions = ['.webp', '.jpg', '.png'];
         for (const ext of extensions) {
-          const formattedSlug = decodeURIComponent(slug); // Decode the slug for correct formatting
+          const formattedSlug = decodeURIComponent(slug);
           const potentialUrl = `https://raw.githubusercontent.com/skamalkumar/finworldarticles/main/content/images/${formattedSlug}${ext}`;
 
-          try {
-            const imageResponse = await fetch(potentialUrl);
-            if (imageResponse.ok) {
-              setImageUrl(potentialUrl);
-              break;
-            }
-          } catch (error) {
-            console.error(`Error checking image at: ${potentialUrl}`, error);
+          const imageResponse = await fetch(potentialUrl);
+          if (imageResponse.ok) {
+            setImageUrl(potentialUrl);
+            break;
           }
         }
       } catch (error) {
@@ -50,20 +56,22 @@ const BlogPost = () => {
 
   if (loading) return <p>Loading...</p>;
 
-  if (!slug || !postContent) return (
-    <div className="max-w-4xl mx-auto p-6">
-      <p>Post not found</p>
-      <Link href="/blog" className="text-blue-500 hover:underline mt-4 inline-block">
-        Back to Blog
-      </Link>
-    </div>
-  );
+  if (!slug || !postContent) {
+    return (
+      <div className="max-w-4xl mx-auto p-6">
+        <p>Post not found</p>
+        <Link href="/blog" className="text-blue-500 hover:underline mt-4 inline-block">
+          Back to Blog
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <article className="max-w-4xl mx-auto p-6">
       <Head>
         <title>{decodeURIComponent(slug)} - Your Website Name</title>
-        <meta name="description" content={decodeURIComponent(slug)} />
+        <meta name="description" content={`Read more about ${decodeURIComponent(slug)}.`} />
       </Head>
       
       <header>
@@ -78,6 +86,7 @@ const BlogPost = () => {
       </header>
 
       <section className="prose max-w-none text-gray-700">
+        {/* Render HTML content with dangerouslySetInnerHTML */}
         <div dangerouslySetInnerHTML={{ __html: postContent }} />
       </section>
       
