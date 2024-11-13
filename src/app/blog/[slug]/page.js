@@ -68,14 +68,14 @@ const BlogPost = () => {
   }
 
   return (
-    <article className="max-w-4xl mx-auto p-6">
+    <article className="max-w-4xl mx-auto p-6 bg-blue-100 rounded-lg shadow-md">
       <Head>
-        <title>{decodeURIComponent(slug)} - Your Website Name</title>
+        <title>{decodeURIComponent(slug)} - FinWorld</title>
         <meta name="description" content={`Read more about ${decodeURIComponent(slug)}.`} />
       </Head>
       
-      <header>
-        <h1 className="text-3xl font-bold mb-4">{decodeURIComponent(slug)}</h1>
+      <header className="text-center mb-4">
+        <h1 className="text-3xl font-bold">{decodeURIComponent(slug)}</h1>
         {imageUrl && (
           <img 
             src={imageUrl} 
