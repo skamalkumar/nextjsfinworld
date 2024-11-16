@@ -1,90 +1,115 @@
-'use client'
-
-import { useState, useEffect } from 'react'
-import axios from 'axios'
+'use client';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 export default function FundsPage() {
-  const [funds, setFunds] = useState([])
-  const [navData, setNavData] = useState({})
-  const [searchTerm, setSearchTerm] = useState('')
-  const [fundType, setFundType] = useState('mutual') // 'mutual' or 'etf'
-  const [batchSize, setBatchSize] = useState(10)
+  const [funds, setFunds] = useState([]); // List of funds
+  const [selectedFund, setSelectedFund] = useState(''); // Selected fund code
+  const [fundData, setFundData] = useState(null); // Specific fund data (meta)
+  const [navHistory, setNavHistory] = useState([]); // NAV history
+  const [loading, setLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
-  // Fetch the full list of funds initially
+  // Fetch the list of mutual funds
   useEffect(() => {
     async function fetchFunds() {
-      const response = await axios.get('https://api.mfapi.in/mf')
-      setFunds(response.data)
+      try {
+        const response = await axios.get('https://api.mfapi.in/mf');
+        setFunds(response.data); // Assuming response.data contains the list of funds
+      } catch (error) {
+        console.error('Error fetching funds:', error);
+      }
     }
-    fetchFunds()
-  }, [])
+    fetchFunds();
+  }, []);
 
-  // Filter funds based on search term and fund type
-  const filteredFunds = funds
-    .filter(fund => 
-      (fundType === 'mutual' ? !fund.schemeName.toLowerCase().includes('etf') : fund.schemeName.toLowerCase().includes('etf')) &&
-      (fund.schemeCode.toString().includes(searchTerm) ||
-       fund.schemeName.toLowerCase().includes(searchTerm.toLowerCase()))
-    )
-    .sort((a, b) => (parseFloat(navData[b.schemeCode]) || 0) - (parseFloat(navData[a.schemeCode]) || 0))
-
-  // Fetch NAV data for only the filtered funds
-  useEffect(() => {
-    async function fetchNAVData() {
-      const promises = filteredFunds.slice(0, batchSize).map(async (fund) => {
-        try {
-          const navResponse = await axios.get(`https://api.mfapi.in/mf/${fund.schemeCode}`)
-          return { schemeCode: fund.schemeCode, nav: navResponse.data.data[0]?.nav || 'N/A' }
-        } catch (error) {
-          console.error(`Error fetching NAV for schemeCode ${fund.schemeCode}:`, error)
-          return { schemeCode: fund.schemeCode, nav: 'N/A' }
-        }
-      })
-
-      const results = await Promise.all(promises)
-      const navDataMap = results.reduce((acc, item) => {
-        acc[item.schemeCode] = item.nav
-        return acc
-      }, {})
-      setNavData((prevNavData) => ({ ...prevNavData, ...navDataMap }))
+  // Fetch data for a specific mutual fund
+  const fetchFundData = async (schemeCode) => {
+    setLoading(true);
+    try {
+      const response = await axios.get(`https://api.mfapi.in/mf/${schemeCode}`);
+      const { meta, data } = response.data; // Destructure meta and data
+      setFundData(meta); // Set metadata of the fund
+      setNavHistory(data); // Set NAV history
+    } catch (error) {
+      console.error('Error fetching fund data:', error);
+    } finally {
+      setLoading(false);
     }
+  };
 
-    if (filteredFunds.length > 0) fetchNAVData()
-  }, [filteredFunds, batchSize])
-
-  const handleFundTypeChange = (type) => {
-    setFundType(type)
-    setBatchSize(10) // Reset batch size on fund type change
-    setNavData({}) // Clear NAV data to reload for the new category
-  }
-
-  const loadMoreFunds = () => {
-    setBatchSize((prev) => prev + 10)
-  }
+  // Filter funds based on the search term
+  const filteredFunds = (funds || []).filter((fund) =>
+    fund.schemeName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div>
-      <h1>Top {fundType === 'mutual' ? 'Mutual Funds' : 'ETFs'}</h1>
-      <div>
-        <button onClick={() => handleFundTypeChange('mutual')}>Best Mutual Funds</button>
-        <button onClick={() => handleFundTypeChange('etf')}>Best ETFs</button>
-      </div>
+      <h1>Mutual Funds</h1>
+      
+      {/* Search input */}
       <input
         type="text"
         placeholder="Search funds..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <ul>
-        {filteredFunds.slice(0, batchSize).map((fund, index) => (
-          <li key={`${fund.schemeCode}-${index}`}>
-            {fund.schemeName} - NAV: {navData[fund.schemeCode] || 'Loading...'}
-          </li>
+      
+      {/* Dropdown to select a fund */}
+      <select
+        onChange={(e) => setSelectedFund(e.target.value)}
+        value={selectedFund}
+      >
+        <option value="">Select a Fund</option>
+        {filteredFunds.map((fund, index) => (
+          <option key={`${fund.schemeCode}-${index}`} value={fund.schemeCode}>
+            {fund.schemeName}
+          </option>
         ))}
-      </ul>
-      {batchSize < filteredFunds.length && (
-        <button onClick={loadMoreFunds}>Load More</button>
+      </select>
+
+      {/* Button to fetch specific fund data */}
+      {selectedFund && (
+        <button onClick={() => fetchFundData(selectedFund)}>
+          {loading ? 'Loading...' : 'Fetch Fund Data'}
+        </button>
       )}
+
+      {/* Display fund data */}
+      {fundData && (
+        <div>
+          <h2>Fund Details</h2>
+          <p>Scheme Name: {fundData.scheme_name}</p>
+          <p>Scheme Type: {fundData.scheme_type}</p>
+          <p>Fund House: {fundData.fund_house}</p>
+        </div>
+      )}
+
+      {/* Display NAV history */}
+      {navHistory.length > 0 && (
+        <div>
+          <h3>NAV History</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>NAV</th>
+              </tr>
+            </thead>
+            <tbody>
+              {navHistory.map((navEntry, index) => (
+                <tr key={index}>
+                  <td>{navEntry.date}</td>
+                  <td>{navEntry.nav}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {/* No fund data available message */}
+      {!fundData && !loading && <p>No data available for the selected fund.</p>}
     </div>
-  )
+  );
 }
