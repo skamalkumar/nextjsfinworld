@@ -8,6 +8,7 @@ const subcategoryMappings = {
   debt: ['Liquid', 'Banking PSU', 'Corporate Bond', 'Dynamic Bond', 'Overnight', 'Ultra Short Duration', 'Short Duration', 'Low Duration', 'Credit Risk', 'Gilt', '10 Year Gilt', 'Money Market', 'Floater', 'Medium Duration', 'Others'],
   hybrid: ['Conservative', 'Aggressive', 'Balanced', 'Arbitrage', 'Equity Savings', 'Multi Asset Allocation', 'Others'],
   elss: [],
+  etfs: [], // ETFs won't have subcategories, so this is empty
 };
 
 const FundDetails = ({ fund, onBack }) => {
@@ -134,7 +135,11 @@ const MutualFundsDashboard = () => {
   const filterFundsByCategoryAndSubcategory = () => {
     let filtered = funds;
 
-    if (selectedSubcategory && selectedSubcategory !== 'Others') {
+    if (activeTab === 'etfs') {
+      filtered = filtered.filter((fund) =>
+        fund.schemeName?.toLowerCase().includes('etf')
+      );
+    } else if (selectedSubcategory && selectedSubcategory !== 'Others') {
       filtered = filtered.filter((fund) =>
         fund.schemeName?.toLowerCase().includes(selectedSubcategory.toLowerCase())
       );
@@ -226,7 +231,7 @@ const MutualFundsDashboard = () => {
             ))}
           </div>
         ) : (
-          <div>No funds available for the search term or selected subcategory.</div>
+          <div>No funds available for the selected category.</div>
         )}
       </div>
     </div>
