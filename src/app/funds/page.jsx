@@ -3,9 +3,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const subcategoryMappings = {
-  index: ['Nifty 50', 'Nifty Next 50', 'Nifty Small Cap', 'Nifty Mid Cap', 'Nifty Bank', 'Sensex', 'Others'],
-  equity: ['Large Cap', 'Mid Cap', 'Small Cap', 'Multicap', 'Blue Chip', 'Focused', 'Contra', 'International', 'Flexi Cap', 'Sectoral', 'Dividend Yield', 'Others'],
-  debt: ['Liquid', 'Banking PSU', 'Corporate Bond', 'Dynamic Bond', 'Overnight', 'Ultra Short Duration', 'Short Duration', 'Low Duration', 'Credit Risk', 'Gilt', '10 Year Gilt', 'Money Market', 'Floater', 'Medium Duration', 'Others'],
+  index: ['Nifty 50', 'Nifty Next 50', 'Nifty Bank', 'Sensex', 'Others'],
+  equity: ['Large Cap', 'Mid Cap', 'Small Cap', 'Multicap', 'Blue Chip', 'Focused', 'Contra', 'International', 'Flexi Cap', 'Dividend Yield', 'Others'],
+  debt: ['Liquid', 'Corporate Bond', 'Dynamic Bond', 'Overnight', 'Ultra Short Duration', 'Short Duration', 'Low Duration', 'Credit Risk', 'Gilt', '10 Year Gilt', 'Money Market', 'Floater', 'Medium Duration', 'Others'],
   hybrid: ['Conservative', 'Aggressive', 'Balanced', 'Arbitrage', 'Equity Savings', 'Multi Asset Allocation', 'Others'],
   elss: [],
   etfs: [], // ETFs won't have subcategories, so this is empty
