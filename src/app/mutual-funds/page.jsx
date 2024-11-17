@@ -62,7 +62,7 @@ const FundDetails = ({ fund, onBack }) => {
         <div>
           <h2 className="text-3xl font-bold text-blue-700">{fund.schemeName}</h2>
           <div className="mt-6">
-            <h3 className="text-2xl font-bold mb-4 text-center">Fund Performance</h3>
+            <h3 className="text-2xl font-bold mb-4 text-center">Fund Performance(Cummulative Returns)</h3>
             <div className="grid grid-cols-3 gap-4 bg-blue-100 p-6 rounded-lg shadow-lg">
               <div className="text-center">
                 <h4 className="text-lg font-semibold text-blue-900">1-Year Returns</h4>

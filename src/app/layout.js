@@ -25,18 +25,21 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         {/* Add the favicon here */}
-        <link rel="icon" href='/finworld-logo.webp' />
+        <link rel="icon" href="/finworld-logo.webp" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
-
         <AuthProvider>
-        <Header />
-        {children}
-        <Footer />
-        </AuthProvider>
+          {/* Header */}
+          <Header />
 
+          {/* Main Content */}
+          <main className="flex-grow">{children}</main>
+
+          {/* Footer */}
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );
