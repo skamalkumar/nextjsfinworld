@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Link from 'next/link';
 
 const YOUTUBE_API_KEY = 'AIzaSyBb2CXSFB4DVIbtY3KLLOPU_5mIGdS5g4g';
 const CHANNEL_ID = 'UC4WbdkC-Nn0svTmXhUir0DQ'; // Replace with your YouTube channel ID
@@ -49,25 +50,25 @@ function Homepage() {
                   title: "Family Guard", 
                   description: "A safety net for you and your family in times of need, offering financial protection and security. ",
                   image: "/images/financialplanning/family_guard.webp", 
-                  // link: "https://yourwebsite.com/family_guard.webp"
+                  link: "/financialplanning/insuranceplanning/lifeinsurance"
                 },
                 { 
                   title: "Dream Builders", 
                   description: "Invest today to make your dreams come true tomorrow, from education to retirement goals.",
                   image: "/images/financialplanning/Dream_Builders.webp", 
-                  link: "https://yourwebsite.com/dream-builders"
+                  link: "/financialplanning/investmentplanning"
                 },
                 { 
                   title: "Clever Saving", 
                   description: "Optimize your finances by saving wisely and planning tax to keep more of what you earn.",
                   image: "/images/financialplanning/Clever_Saving.webp", 
-                  link: "https://yourwebsite.com/clever-saving"
+                  link: "/financialplanning/taxplanning"
                 },
                 { 
                   title: "Future Plans", 
                   description: "Ensure your family’s future is secure by planning for tomorrow’s needs today.",
                   image: "/images/financialplanning/future_plans.jpg", 
-                  link: "https://yourwebsite.com/future-plans"
+                  link: "/financialplanning/willplanning"
                 }
               ].map((card, index) => (
                 <div key={index} className="bg-white rounded-lg shadow-md p-6 text-center">

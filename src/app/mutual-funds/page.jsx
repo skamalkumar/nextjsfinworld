@@ -282,6 +282,12 @@ const MutualFundsDashboard = () => {
           )}
         </div>
       </div>
+              {/* Disclaimer */}
+              <div className="p-4 text-sm text-gray-500 border-t mt-4">
+        <p>
+          <strong>Financial Disclaimer:</strong> Mutual fund investments are subject to market risks. Please read the offer document carefully and consult your advisor before investing. Past performance is not indicative of future returns.
+        </p>
+      </div>
     </div>
   );
 };
