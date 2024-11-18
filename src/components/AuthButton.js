@@ -1,9 +1,9 @@
 // components/AuthButton.js
 "use client";
-import { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { signInWithGoogle, signInWithEmail, registerWithEmail, signOut } from '../../lib/firebaseAuth';
 import { useAuth } from '../../context/AuthContext';
-import { FaCaretDown, FaGoogle } from 'react-icons/fa';
+import { FaCaretDown, FaGoogle, FaUser } from 'react-icons/fa';
 
 export default function AuthButton() {
   const { user, verificationSent, setVerificationSent, verificationEmail, setVerificationEmail } = useAuth();
@@ -12,11 +12,23 @@ export default function AuthButton() {
   const [isRegister, setIsRegister] = useState(false);
   const [showAuthOptions, setShowAuthOptions] = useState(false);
   const [message, setMessage] = useState('');
+  const dropdownRef = useRef(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowAuthOptions(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const handleEmailSignIn = async () => {
     try {
       await signInWithEmail(email, password);
-      setMessage('Successfully signed in!');
+      setMessage('');
       setShowAuthOptions(false);
     } catch (error) {
       setMessage(error.message);
@@ -28,10 +40,8 @@ export default function AuthButton() {
       await registerWithEmail(email, password);
       setVerificationSent(true);
       setVerificationEmail(email);
-      setMessage(`A verification email has been sent to ${email}. Please check your inbox.`);
       setEmail('');
       setPassword('');
-      // Close the auth options dropdown after successful registration
       setShowAuthOptions(false);
     } catch (error) {
       setMessage(error.message);
@@ -50,93 +60,110 @@ export default function AuthButton() {
     }
   };
 
-  const handleOkClick = () => {
-    setVerificationSent(false);
-    setVerificationEmail('');
-    setMessage('');
-    setShowAuthOptions(false);
-  };
-
   return (
-    <div className="relative">
+    <div className="relative" ref={dropdownRef}>
       {user ? (
-        <div className="flex items-center space-x-4">
-          <span className="text-white">Logged in as {user.email}</span>
-          <button onClick={handleSignOut} className="text-white hover:underline">
-            Sign Out
-          </button>
-        </div>
+        <button 
+          onClick={() => setShowAuthOptions(!showAuthOptions)}
+          className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-full text-sm"
+        >
+          <FaUser className="w-4 h-4" />
+          <FaCaretDown className="w-3 h-3" />
+        </button>
       ) : (
-        <div className="flex items-center relative">
-          <button 
-            onClick={() => setShowAuthOptions(!showAuthOptions)} 
-            className="text-white hover:underline flex items-center"
-          >
-            Sign In <FaCaretDown className="ml-1" />
-          </button>
-          
-          {showAuthOptions && !verificationSent && (
-            <div className="absolute top-12 right-0 bg-white text-black p-4 shadow-lg rounded-md w-64 z-50">
-              <button onClick={signInWithGoogle} className="bg-blue-500 text-white w-full py-2 px-4 rounded mb-4 flex items-center">
-                <FaGoogle className="mr-2" />
-                Sign In with Google
-              </button>
-              
-              <div className="text-center my-2">OR</div>
-              
-              <input 
-                type="email" 
-                placeholder="Email" 
-                value={email} 
-                onChange={(e) => setEmail(e.target.value)} 
-                className="border p-2 mb-2 w-full rounded"
-              />
-              <input 
-                type="password" 
-                placeholder="Password" 
-                value={password} 
-                onChange={(e) => setPassword(e.target.value)} 
-                className="border p-2 mb-2 w-full rounded"
-              />
+        <button 
+          onClick={() => setShowAuthOptions(!showAuthOptions)}
+          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1.5 rounded-full text-sm"
+        >
+          Sign In
+        </button>
+      )}
 
-              {isRegister ? (
-                <button onClick={handleEmailRegister} className="bg-green-500 text-white w-full py-2 px-4 rounded">
-                  Register
-                </button>
-              ) : (
-                <button onClick={handleEmailSignIn} className="bg-blue-500 text-white w-full py-2 px-4 rounded">
-                  Sign In
-                </button>
-              )}
-              
-              <button onClick={() => setIsRegister(!isRegister)} className="mt-2 text-blue-500 underline">
-                {isRegister ? "Have an account? Sign In" : "New user? Register"}
+      {showAuthOptions && !verificationSent && (
+        <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg p-4 z-50">
+          {user ? (
+            <div className="space-y-2">
+              <p className="text-sm text-gray-600 truncate">{user.email}</p>
+              <button 
+                onClick={handleSignOut}
+                className="w-full text-left text-sm text-red-600 hover:text-red-700"
+              >
+                Sign Out
               </button>
-
-              {message && !verificationSent && (
-                <p className="text-center text-red-600 mt-2">{message}</p>
-              )}
             </div>
-          )}
-          
-          {/* Verification Message Modal */}
-          {verificationSent && (
-            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-              <div className="bg-white p-6 rounded-lg shadow-xl max-w-md w-full mx-4">
-                <p className="text-center text-gray-800 mb-4">
-                  A verification email has been sent to {verificationEmail}. Please check your inbox.
-                </p>
-                <div className="flex justify-center">
-                  <button 
-                    onClick={handleOkClick}
-                    className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 transition-colors"
-                  >
-                    OK
-                  </button>
+          ) : (
+            <div className="space-y-3">
+              <button 
+                onClick={signInWithGoogle}
+                className="flex items-center justify-center w-full bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded-md text-sm"
+              >
+                <FaGoogle className="mr-2" />
+                Sign in with Google
+              </button>
+              
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-gray-300" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-white px-2 text-gray-500">or</span>
                 </div>
               </div>
+
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-3 py-2 text-sm border rounded-md"
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-3 py-2 text-sm border rounded-md"
+              />
+
+              <button
+                onClick={isRegister ? handleEmailRegister : handleEmailSignIn}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md text-sm"
+              >
+                {isRegister ? 'Register' : 'Sign In'}
+              </button>
+
+              <button
+                onClick={() => setIsRegister(!isRegister)}
+                className="w-full text-sm text-blue-600 hover:text-blue-700"
+              >
+                {isRegister ? 'Have an account? Sign In' : 'New user? Register'}
+              </button>
+
+              {message && (
+                <p className="text-xs text-red-600 text-center">{message}</p>
+              )}
             </div>
           )}
+        </div>
+      )}
+
+      {verificationSent && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg shadow-xl p-6 max-w-sm w-full">
+            <p className="text-sm text-center text-gray-800 mb-4">
+              A verification email has been sent to {verificationEmail}. Please check your inbox.
+            </p>
+            <button 
+              onClick={() => {
+                setVerificationSent(false);
+                setVerificationEmail('');
+                setMessage('');
+              }}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md text-sm"
+            >
+              OK
+            </button>
+          </div>
         </div>
       )}
     </div>

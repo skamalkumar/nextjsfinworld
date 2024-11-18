@@ -34,17 +34,21 @@ export default function Header() {
       </div>
       
       {/* Hamburger Menu Icon */}
-      <div className="md:hidden text-white text-2xl" onClick={toggleMenu}>
-        {isOpen ? <FaTimes /> : <FaBars />}
-      </div>
+      <div 
+      className="md:hidden text-white text-2xl cursor-pointer transition-colors duration-200 hover:text-orange-300" 
+      onClick={toggleMenu}
+      aria-label={isOpen ? "Close menu" : "Open menu"}
+    >
+      {isOpen ? <FaTimes /> : <FaBars />}
+    </div>
 
       {/* Desktop Nav */}
       <nav className="hidden md:flex space-x-4">
         <Link href="/" className="text-white hover:text-gray-300 hover:underline">Home</Link>
         <Link href="/blog" className="text-white hover:text-gray-300 hover:underline">Blog</Link>
-        <FinancialPlanningDropdown/>
         {/* <Link href="/FinancialPlanningDropdown" className="text-white hover:text-gray-300 hover:underline">Financial Planning</Link> */}
         <Link href="/newspage" className="text-white hover:text-gray-300 hover:underline">News</Link>
+        <FinancialPlanningDropdown/>
         <Link href="/aboutus" className="text-white hover:text-gray-300 hover:underline">About Us</Link>
         <Link href="/contactus" className="text-white hover:text-gray-300 hover:underline">Contact Us</Link>
       </nav>
@@ -53,9 +57,10 @@ export default function Header() {
       {isOpen && (
         <nav className="flex flex-col items-center absolute top-20 left-0 w-full bg-blue-900 text-white space-y-4 md:hidden">
           <Link href="/" className="text-white hover:text-gray-300 hover:underline" onClick={toggleMenu}>Home</Link>
-          <Link href="/" className="text-white hover:text-gray-300 hover:underline" onClick={toggleMenu}>Screeners</Link>
-          <Link href="/" className="text-white hover:text-gray-300 hover:underline" onClick={toggleMenu}>Financial Planning</Link>
+          <Link href="/blog" className="text-white hover:text-gray-300 hover:underline" onClick={toggleMenu}>Blog</Link>
+          {/* <Link href="/mutual-funds" className="text-white hover:text-gray-300 hover:underline" onClick={toggleMenu}>Mutual Funds</Link> */}
           <Link href="/newspage" className="text-white hover:text-gray-300 hover:underline" onClick={toggleMenu}>News</Link>
+          <FinancialPlanningDropdown/>
           <Link href="/aboutus" className="text-white hover:text-gray-300 hover:underline" onClick={toggleMenu}>About Us</Link>
           <Link href="/contactus" className="text-white hover:text-gray-300 hover:underline" onClick={toggleMenu}>Contact Us</Link>
         </nav>

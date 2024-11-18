@@ -22,7 +22,7 @@ export default function HeroSection() {
           const items = await Promise.all(
             postFiles.map(async (post) => {
               const baseSlug = post.name.replace(".html", "");
-              const title = baseSlug.split("-").join(" "); // Convert slug to readable title
+              const title = baseSlug.split("-").join(" ");
               const extensions = [".webp", ".jpg", ".png"];
               let imageUrl = null;
 
@@ -87,30 +87,28 @@ export default function HeroSection() {
   }
 
   return (
-    <section className="flex justify-between items-center bg-blue-600 text-white py-16 px-8 rounded-md mx-4 my-2">
-      <div className="max-w-lg">
-        <h1 className="text-4xl font-bold mb-4">The future of wealth management</h1>
-        <p className="mb-6">
-          Access expert financial advice and investment solutions, powered by cutting-edge technology, at a fraction of the cost.
+    <section className="flex flex-col lg:flex-row justify-between items-center bg-blue-600 text-white py-12 px-4 lg:px-8 rounded-md mx-4 my-2">
+      {/* Text Content */}
+      <div className="max-w-lg mb-8 lg:mb-0">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4">The Future of Wealth Management</h1>
+        <p className="mb-6 text-sm md:text-base">
+        Amplify your financial potential with elite investment intelligence, powered by state-of-the-art technology – zero barriers, zero cost, maximum impact.
         </p>
-        <button className="bg-blue-500 text-white py-3 px-6 rounded hover:bg-blue-400">
+        <button className="bg-blue-500 text-white py-2 px-4 md:py-3 md:px-6 rounded hover:bg-blue-400">
           Find Out More
         </button>
       </div>
 
-      <div className="relative w-1/2 overflow-hidden rounded-lg shadow-lg">
-        {/* Sliding container */}
+      {/* Sliding Container */}
+      <div className="relative w-full lg:w-1/2 aspect-video overflow-hidden rounded-lg shadow-lg">
         <div
-          className="flex transition-all duration-500 ease-in-out"
+          className="flex transition-transform duration-500 ease-in-out"
           style={{
             transform: `translateX(-${currentIndex * 100}%)`,
           }}
         >
-          {carouselItems.map((item, index) => (
-            <div
-              key={item.slug}
-              className="flex-shrink-0 w-full relative"
-            >
+          {carouselItems.map((item) => (
+            <div key={item.slug} className="flex-shrink-0 w-full">
               <Link
                 href={`/blog/${item.slug}`}
                 target="_blank"
@@ -128,7 +126,7 @@ export default function HeroSection() {
                 
                 {/* Title Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
-                  <h3 className="text-white text-lg font-semibold capitalize">
+                  <h3 className="text-white text-base md:text-lg font-semibold capitalize">
                     {item.title}
                   </h3>
                 </div>
@@ -141,14 +139,14 @@ export default function HeroSection() {
         <button
           onClick={prevSlide}
           disabled={isAnimating}
-          className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-black/50 text-white p-3 rounded-full hover:bg-black/70 transition-colors"
+          className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-black/50 text-white p-2 md:p-3 rounded-full hover:bg-black/70 transition-colors"
         >
           &#10094;
         </button>
         <button
           onClick={nextSlide}
           disabled={isAnimating}
-          className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-black/50 text-white p-3 rounded-full hover:bg-black/70 transition-colors"
+          className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-black/50 text-white p-2 md:p-3 rounded-full hover:bg-black/70 transition-colors"
         >
           &#10095;
         </button>
@@ -165,7 +163,7 @@ export default function HeroSection() {
                   setTimeout(() => setIsAnimating(false), 500);
                 }
               }}
-              className={`w-2 h-2 rounded-full transition-all ${
+              className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all ${
                 currentIndex === index ? 'bg-white w-4' : 'bg-white/50'
               }`}
             />
