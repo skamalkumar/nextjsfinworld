@@ -179,6 +179,14 @@ const FinancialPlanningDropdown = () => {
               Mutual Funds
             </Link>
           </li>
+          <li className="mb-1">
+            <Link
+              href="/financialhealthscore"
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white rounded-md"
+            >
+              Financial HealthScore
+            </Link>
+          </li>
         </ul>
       )}
     </div>
