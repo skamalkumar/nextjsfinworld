@@ -1,49 +1,38 @@
+// context/AuthContext.js
 "use client";
+import { createContext, useContext, useState, useEffect } from 'react';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
-import { createContext, useContext, useEffect, useState } from 'react';
-import { auth } from '../lib/firebase';
-
-const AuthContext = createContext();
+const AuthContext = createContext({});
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [verificationSent, setVerificationSent] = useState(false);
-  const [verificationEmail, setVerificationEmail] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [isEmailVerified, setIsEmailVerified] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user && !user.emailVerified && !verificationSent) {
-        setUser(null);
-      } else if (user && user.emailVerified) {
-        setUser({ uid: user.uid, email: user.email });
-        setVerificationSent(false);
-        setVerificationEmail('');
-      } else if (!user) {
-        setUser(null);
-      }
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+      setIsEmailVerified(user?.emailVerified ?? false);
+      setLoading(false);
     });
-    return () => unsubscribe();
-  }, [verificationSent]);
 
-  const value = {
-    user,
-    setUser,
-    verificationSent,
-    setVerificationSent,
-    verificationEmail,
-    setVerificationEmail
-  };
+    return () => unsubscribe();
+  }, []);
 
   return (
-    <AuthContext.Provider value={value}>
-      {children}
+    <AuthContext.Provider value={{ 
+      user, 
+      loading, 
+      isEmailVerified,
+    }}>
+      {!loading && children}
     </AuthContext.Provider>
   );
 }
 
-export function useAuth() {
-  return useContext(AuthContext);
-}
+export const useAuth = () => useContext(AuthContext);
 
 // export function AuthProvider({ children }) {
 //   const [user, setUser] = useState(null);

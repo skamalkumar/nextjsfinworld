@@ -1,18 +1,15 @@
-// components/AuthButton.js
 "use client";
-import React, { useState, useRef, useEffect } from 'react';
-import { signInWithGoogle, signInWithEmail, registerWithEmail, signOut } from '../../lib/firebaseAuth';
-import { useAuth } from '../../context/AuthContext';
-import { FaCaretDown, FaGoogle, FaUser } from 'react-icons/fa';
+import React, { useState, useRef, useEffect } from "react";
+import { signInWithGoogle, signOut } from "../../lib/firebaseAuth";
+import { useAuth } from "../../context/AuthContext";
+import { FaCaretDown, FaGoogle, FaUser } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 export default function AuthButton() {
-  const { user, verificationSent, setVerificationSent, verificationEmail, setVerificationEmail } = useAuth();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isRegister, setIsRegister] = useState(false);
+  const { user } = useAuth();
   const [showAuthOptions, setShowAuthOptions] = useState(false);
-  const [message, setMessage] = useState('');
   const dropdownRef = useRef(null);
+  const router = useRouter();
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -21,30 +18,16 @@ export default function AuthButton() {
         setShowAuthOptions(false);
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleEmailSignIn = async () => {
+  const handleSignIn = async () => {
     try {
-      await signInWithEmail(email, password);
-      setMessage('');
+      await signInWithGoogle();
       setShowAuthOptions(false);
     } catch (error) {
-      setMessage(error.message);
-    }
-  };
-
-  const handleEmailRegister = async () => {
-    try {
-      await registerWithEmail(email, password);
-      setVerificationSent(true);
-      setVerificationEmail(email);
-      setEmail('');
-      setPassword('');
-      setShowAuthOptions(false);
-    } catch (error) {
-      setMessage(error.message);
+      console.error("Google Sign-In Error:", error);
     }
   };
 
@@ -52,18 +35,20 @@ export default function AuthButton() {
     try {
       await signOut();
       setShowAuthOptions(false);
-      setMessage('');
-      setVerificationSent(false);
-      setVerificationEmail('');
     } catch (error) {
-      setMessage(error.message);
+      console.error("Sign-Out Error:", error);
     }
+  };
+
+  const navigateTo = (path) => {
+    router.push(path);
+    setShowAuthOptions(false);
   };
 
   return (
     <div className="relative" ref={dropdownRef}>
       {user ? (
-        <button 
+        <button
           onClick={() => setShowAuthOptions(!showAuthOptions)}
           className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-full text-sm"
         >
@@ -71,7 +56,7 @@ export default function AuthButton() {
           <FaCaretDown className="w-3 h-3" />
         </button>
       ) : (
-        <button 
+        <button
           onClick={() => setShowAuthOptions(!showAuthOptions)}
           className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1.5 rounded-full text-sm"
         >
@@ -79,28 +64,28 @@ export default function AuthButton() {
         </button>
       )}
 
-      {showAuthOptions && !verificationSent && (
+      {showAuthOptions && (
         <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg p-4 z-50">
           {user ? (
             <div className="space-y-2">
               <p className="text-sm text-gray-600 truncate">{user.email}</p>
-              <button 
+              <button
                 onClick={handleSignOut}
                 className="w-full text-left text-sm text-red-600 hover:text-red-700"
               >
-                Sign Out
+                Logout
               </button>
             </div>
           ) : (
             <div className="space-y-3">
-              <button 
-                onClick={signInWithGoogle}
+              <button
+                onClick={handleSignIn}
                 className="flex items-center justify-center w-full bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded-md text-sm"
               >
                 <FaGoogle className="mr-2" />
                 Sign in with Google
               </button>
-              
+
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
                   <div className="w-full border-t border-gray-300" />
@@ -110,60 +95,21 @@ export default function AuthButton() {
                 </div>
               </div>
 
-              <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-3 py-2 text-sm border rounded-md"
-              />
-              <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-3 py-2 text-sm border rounded-md"
-              />
-
               <button
-                onClick={isRegister ? handleEmailRegister : handleEmailSignIn}
+                onClick={() => navigateTo("/register")}
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md text-sm"
               >
-                {isRegister ? 'Register' : 'Sign In'}
+                Register
               </button>
 
               <button
-                onClick={() => setIsRegister(!isRegister)}
-                className="w-full text-sm text-blue-600 hover:text-blue-700"
+                onClick={() => navigateTo("/login")}
+                className="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 py-2 rounded-md text-sm"
               >
-                {isRegister ? 'Have an account? Sign In' : 'New user? Register'}
+                Login
               </button>
-
-              {message && (
-                <p className="text-xs text-red-600 text-center">{message}</p>
-              )}
             </div>
           )}
-        </div>
-      )}
-
-      {verificationSent && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg shadow-xl p-6 max-w-sm w-full">
-            <p className="text-sm text-center text-gray-800 mb-4">
-              A verification email has been sent to {verificationEmail}. Please check your inbox.
-            </p>
-            <button 
-              onClick={() => {
-                setVerificationSent(false);
-                setVerificationEmail('');
-                setMessage('');
-              }}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md text-sm"
-            >
-              OK
-            </button>
-          </div>
         </div>
       )}
     </div>
