@@ -83,109 +83,132 @@ const handleSubmit = async (e) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-200 to-blue-100 flex items-center justify-center p-6">
-      <div className="w-full max-w-4xl bg-white shadow-lg rounded-lg overflow-hidden">
-        <div className="grid grid-cols-1 md:grid-cols-2">
-          {/* Contact Form Section */}
-          <div className="p-8 bg-gradient-to-tr from-blue-50 to-blue-100">
-            {!user ? (
-              <div className="text-center">
-                <h2 className="text-3xl font-bold text-blue-600 mb-4">
-                  Sign In Required
-                </h2>
-                <p className="text-gray-600 mb-6">
-                  Please sign in to your account to access the contact form and
-                  submit your message.
-                </p>
-                <button
-                  className="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg px-4 py-2"
-                  onClick={handleSignIn}
-                >
-                  Sign In
-                </button>
-              </div>
-            ) : (
-              <>
-                {!successMessage ? (
-                  <>
-                    <h2 className="text-3xl font-bold text-blue-600 text-center mb-6">
-                      Book a Consultation
-                    </h2>
-                    <form onSubmit={handleSubmit} className="space-y-4">
-                      <input
-                        type="text"
-                        placeholder="Your Name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        className="w-full border border-gray-300 rounded-lg px-4 py-2"
-                        required
-                      />
-                      <input
-                        type="email"
-                        placeholder="Your Email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="w-full border border-gray-300 rounded-lg px-4 py-2"
-                        required
-                      />
-                      <input
-                        type="tel"
-                        placeholder="Your Phone Number"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        className="w-full border border-gray-300 rounded-lg px-4 py-2"
-                        required
-                      />
-                      <textarea
-                        placeholder="Your Message"
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                        className="w-full border border-gray-300 rounded-lg px-4 py-2"
-                        rows="4"
-                        required
-                      ></textarea>
-                      <button
-                        type="submit"
-                        className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg py-2"
-                      >
-                        Submit
-                      </button>
-                    </form>
-                  </>
-                ) : (
-                  <p className="text-green-600 text-center text-lg font-medium">
-                    {successMessage}
-                  </p>
-                )}
-              </>
-            )}
-          </div>
+<div className="min-h-screen bg-gradient-to-b from-green-200 to-blue-100 flex items-center justify-center p-6">
+  <div className="w-full max-w-6xl bg-white shadow-lg rounded-lg overflow-hidden">
+    <div className="grid grid-cols-1 md:grid-cols-3">
+      {/* Shahdol Address Section */}
+      <div className="p-8 bg-gray-50">
+        <h3 className="text-2xl font-bold text-gray-700 mb-4 text-center">
+          Shahdol Office
+        </h3>
+        <p className="text-gray-600 text-center text-lg leading-relaxed mb-6">
+          Ward No 28, Behind Christian Hospital, Burhar Road, Shahdol, MP 484001
+        </p>
+        <div className="overflow-hidden rounded-lg shadow-md">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3646.1887662434487!2d81.36314291541058!3d23.292824115221846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3981ec8df98f4a73%3A0x523e61c658994aa0!2sChristian%20Hospital%2C%20Burhar%20Rd%2C%20Shahdol%2C%20Madhya%20Pradesh%20484001!5e0!3m2!1sen!2sin!4v1699960103915!5m2!1sen!2sin"
+            width="100%"
+            height="200"
+            style={{ border: 0 }}
+            allowFullScreen=""
+            loading="lazy"
+            title="Shahdol Office Map"
+            referrerPolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+      </div>
 
-          {/* Address Section */}
-          <div className="p-8 bg-gray-50">
-            <h3 className="text-2xl font-bold text-gray-700 mb-4 text-center">
-              Our Address
-            </h3>
-            <p className="text-gray-600 text-center text-lg leading-relaxed mb-6">
-              3rd Floor, 86-90, Paul Street, London, England, United Kingdom,
-              EC2A 4NE
+      {/* Contact Form Section */}
+      <div className="p-8 bg-gradient-to-tr from-blue-50 to-blue-100">
+        {!user ? (
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-blue-600 mb-4">
+              Sign In Required
+            </h2>
+            <p className="text-gray-600 mb-6">
+              Please sign in to your account to access the contact form and
+              submit your message.
             </p>
-            <div className="overflow-hidden rounded-lg shadow-md">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3158.1826810162626!2d-0.08493538468359487!3d51.523263579636535!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761cb2a5ae6e03%3A0xbef1d71b1c5b1aa!2s86-90%20Paul%20St%2C%20London%20EC2A%204NE%2C%20UK!5e0!3m2!1sen!2sus!4v1699214905823!5m2!1sen!2sus"
-                width="100%"
-                height="300"
-                style={{ border: 0 }}
-                allowFullScreen=""
-                loading="lazy"
-                title="Google Maps Location"
-                referrerPolicy="no-referrer-when-downgrade"
-              ></iframe>
-            </div>
+            <button
+              className="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg px-4 py-2"
+              onClick={handleSignIn}
+            >
+              Sign In
+            </button>
           </div>
+        ) : (
+          <>
+            {!successMessage ? (
+              <>
+                <h2 className="text-3xl font-bold text-blue-600 text-center mb-6">
+                  Book a Consultation
+                </h2>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <input
+                    type="text"
+                    placeholder="Your Name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="w-full border border-gray-300 rounded-lg px-4 py-2"
+                    required
+                  />
+                  <input
+                    type="email"
+                    placeholder="Your Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full border border-gray-300 rounded-lg px-4 py-2"
+                    required
+                  />
+                  <input
+                    type="tel"
+                    placeholder="Your Phone Number"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    className="w-full border border-gray-300 rounded-lg px-4 py-2"
+                    required
+                  />
+                  <textarea
+                    placeholder="Your Message"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    className="w-full border border-gray-300 rounded-lg px-4 py-2"
+                    rows="4"
+                    required
+                  ></textarea>
+                  <button
+                    type="submit"
+                    className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg py-2"
+                  >
+                    Submit
+                  </button>
+                </form>
+              </>
+            ) : (
+              <p className="text-green-600 text-center text-lg font-medium">
+                {successMessage}
+              </p>
+            )}
+          </>
+        )}
+      </div>
+
+      {/* London Address Section */}
+      <div className="p-8 bg-gray-50">
+        <h3 className="text-2xl font-bold text-gray-700 mb-4 text-center">
+          London Office
+        </h3>
+        <p className="text-gray-600 text-center text-lg leading-relaxed mb-6">
+          3rd Floor, 86-90, Paul Street, London, England, United Kingdom,
+          EC2A 4NE
+        </p>
+        <div className="overflow-hidden rounded-lg shadow-md">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3158.1826810162626!2d-0.08493538468359487!3d51.523263579636535!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761cb2a5ae6e03%3A0xbef1d71b1c5b1aa!2s86-90%20Paul%20St%2C%20London%20EC2A%204NE%2C%20UK!5e0!3m2!1sen!2sus!4v1699214905823!5m2!1sen!2sus"
+            width="100%"
+            height="200"
+            style={{ border: 0 }}
+            allowFullScreen=""
+            loading="lazy"
+            title="London Office Map"
+            referrerPolicy="no-referrer-when-downgrade"
+          ></iframe>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
   );
 };
 
