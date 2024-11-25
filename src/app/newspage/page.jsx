@@ -13,22 +13,20 @@ const NewsPage = () => {
   const [hasMore, setHasMore] = useState(true); // Whether there are more articles to load
 
   // Rate limit delay (e.g., 1 second between requests)
-  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   const fetchNews = async (pageNumber = 1) => {
     try {
       await delay(1000);
 
-      const response = await axios.get("https://newsapi.org/v2/everything", {
+      const response = await axios.get("https://gnews.io/api/v4/search", {
         params: {
-          q: 'Indian stock market OR Sensex OR Nifty OR BSE OR NSE',
-          apiKey: 'fa50276286ca40b9811738b00915c7a2',
-          language: 'en',
-          sortBy: 'publishedAt',
-          pageSize: 6,
+          q: "Indian stock market OR Sensex OR Nifty OR BSE OR NSE",
+          lang: "en",
+          max: 6,
+          sortBy: "publishedAt",
           page: pageNumber,
-          sources: 'the-hindu,livemint,times-of-india,business-standard,financial-express,cnbc,financial-times,bloomberg,news18,the-economic-times,reuters,moneycontrol,ndtv',
-          domains: 'economictimes.indiatimes.com,livemint.com,business-standard.com,financialexpress.com,cnbc.com,moneycontrol.com,bloomberg.com,ndtv.com,reuters.com'
+          token: "17648c5fcf1ebe5e55bed016469ff355", // Replace with your GNews API key
         },
       });
 
@@ -67,13 +65,12 @@ const NewsPage = () => {
       <NextSeo
         title="Latest Finance News - Indian Stock Market Updates"
         description="Stay updated with the latest finance news on the Indian stock market, Sensex, Nifty, and other major financial topics."
-        canonical="https://webkraft.netlify.app/blog"
-        openGraph={{
-          url: "https://webkraft.netlify.app/blog",
+         openGraph={{
           title: "Latest Finance News - Indian Stock Market Updates",
-          description: "Stay updated with the latest finance news on the Indian stock market, Sensex, Nifty, and other major financial topics.",
-          images: news[0] && news[0].urlToImage ? [{ url: news[0].urlToImage }] : [],
-          site_name: "WebKraft"
+          description:
+            "Stay updated with the latest finance news on the Indian stock market, Sensex, Nifty, and other major financial topics.",
+          images: news[0] && news[0].image ? [{ url: news[0].image }] : [],
+          site_name: "WebKraft",
         }}
       />
       <div className="min-h-screen rounded-md m-3 flex flex-col items-center justify-center bg-gradient-to-r from-green-400 to-blue-500 p-4">
@@ -95,14 +92,14 @@ const NewsPage = () => {
                     url: article.url,
                     title: article.title,
                     description: article.description,
-                    images: article.urlToImage ? [{ url: article.urlToImage }] : [],
-                    site_name: article.source.name
+                    images: article.image ? [{ url: article.image }] : [],
+                    site_name: article.source.name,
                   }}
                   canonical={article.url}
                 />
-                {article.urlToImage && (
+                {article.image && (
                   <img
-                    src={article.urlToImage}
+                    src={article.image}
                     alt={article.title}
                     className="w-full h-48 object-cover rounded-t-lg mb-4"
                   />
