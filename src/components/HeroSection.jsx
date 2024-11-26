@@ -94,9 +94,11 @@ export default function HeroSection() {
         <p className="mb-6 text-sm md:text-base">
         Amplify your financial potential with elite investment intelligence, powered by state-of-the-art technology – zero barriers, zero cost, maximum impact.
         </p>
-        <button className="bg-blue-500 text-white py-2 px-4 md:py-3 md:px-6 rounded hover:bg-blue-400">
-          Find Out More
-        </button>
+        <Link href="/contactus">
+     <button className="bg-blue-500 text-white py-2 px-4 md:py-3 md:px-6 rounded hover:bg-blue-400">
+         Find Out More
+      </button>
+    </Link>
       </div>
 
       {/* Sliding Container */}
