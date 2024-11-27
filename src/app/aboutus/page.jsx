@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '@/components/Header';
+import Link from "next/link";
 
 const AboutUs = () => {
   return (
@@ -28,7 +29,7 @@ const AboutUs = () => {
             </div>
             <div className="md:w-1/2">
               <img 
-                src="/images/aboutus/path_to_vision_image.webp" 
+                src="/images/aboutus/path_to_vision_image.jpeg" 
                 alt="Our Vision" 
                 className="rounded-lg shadow-lg mb-6"
               />
@@ -45,7 +46,7 @@ const AboutUs = () => {
             </div>
             <div className="md:w-1/2">
               <img 
-                src="/images/aboutus/path_to_mission_image.jfif" 
+                src="/images/aboutus/path_to_mission_image.jpeg" 
                 alt="Our Mission" 
                 className="rounded-lg shadow-lg mb-6"
               />
@@ -66,7 +67,7 @@ const AboutUs = () => {
               </div>
               <div className="md:w-1/2">
                 <img 
-                  src="/images/aboutus/path_to_financial_strategies_image.jfif" 
+                  src="/images/aboutus/path_to_financial_strategies_image.jpeg" 
                   alt="Personalized Financial Strategies" 
                   className="rounded-lg shadow-lg mb-6"
                 />
@@ -82,7 +83,7 @@ const AboutUs = () => {
               </div>
               <div className="md:w-1/2">
                 <img 
-                  src="/images/aboutus/path_to_technology_image.jfif" 
+                  src="/images/aboutus/path_to_technology_image.jpeg" 
                   alt="Cutting-Edge Technology" 
                   className="rounded-lg shadow-lg mb-6"
                 />
@@ -107,7 +108,7 @@ const AboutUs = () => {
   </div>
   <div className="md:w-1/2">
     <img 
-      src="/images/aboutus/path_to_services_image.jfif" 
+      src="/images/aboutus/path_to_services_image.jpeg" 
       alt="Our Services" 
       className="rounded-lg shadow-lg mb-6"
     />
@@ -119,11 +120,11 @@ const AboutUs = () => {
           <p className="text-lg mb-6 text-gray-600">
             Ready to take control of your financial future? Contact us today and let us show you how FinWorld can help you achieve your financial goals.
           </p>
-
+          <Link href="/contactus">
           <button className="px-6 py-3 mt-6 bg-blue-900 text-white rounded-lg hover:bg-blue-800 transition-all">
             Get in Touch
           </button>
-
+          </Link>
           <p className="text-xl font-semibold mt-10 text-gray-800">
             Welcome to FinWorld, where your wealth meets holistic management.
           </p>

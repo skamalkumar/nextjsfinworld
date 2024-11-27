@@ -12,6 +12,20 @@ const NewsPage = () => {
   const [page, setPage] = useState(1); // Tracks the page number for pagination
   const [hasMore, setHasMore] = useState(true); // Whether there are more articles to load
 
+  // Array of diverse search terms to rotate through
+  const searchTerms = [
+    "Indian stock market",
+    "Sensex today",
+    "NSE updates",
+    "BSE market trends",
+    "Financial news India",
+    "Investment opportunities",
+    "Stock market analysis",
+    "Economic indicators India",
+    "Market performance",
+    "Corporate earnings"
+  ];
+
   // Rate limit delay (e.g., 1 second between requests)
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -19,9 +33,12 @@ const NewsPage = () => {
     try {
       await delay(1000);
 
+      // Randomly select a search term to get more diverse results
+      const randomSearchTerm = searchTerms[Math.floor(Math.random() * searchTerms.length)];
+
       const response = await axios.get("https://gnews.io/api/v4/search", {
         params: {
-          q: "Indian stock market OR Sensex OR Nifty OR BSE OR NSE",
+          q: randomSearchTerm,
           lang: "en",
           max: 6,
           sortBy: "publishedAt",
@@ -34,14 +51,25 @@ const NewsPage = () => {
 
       if (articles.length > 0) {
         setNews((prevNews) => {
+          // If it's the first page, replace the articles
           if (pageNumber === 1) {
             return articles;
           }
-          return [...prevNews, ...articles];
+          
+          // For subsequent pages, filter out duplicates
+          const uniqueArticles = articles.filter(
+            newArticle => !prevNews.some(
+              existingArticle => existingArticle.title === newArticle.title
+            )
+          );
+
+          return [...prevNews, ...uniqueArticles];
         });
+
+        // Check if we have less than 6 articles, which might indicate no more unique articles
         setHasMore(articles.length === 6);
       } else {
-        setError("No articles found.");
+        setError("No more articles found.");
         setHasMore(false);
       }
 
@@ -65,7 +93,7 @@ const NewsPage = () => {
       <NextSeo
         title="Latest Finance News - Indian Stock Market Updates"
         description="Stay updated with the latest finance news on the Indian stock market, Sensex, Nifty, and other major financial topics."
-         openGraph={{
+        openGraph={{
           title: "Latest Finance News - Indian Stock Market Updates",
           description:
             "Stay updated with the latest finance news on the Indian stock market, Sensex, Nifty, and other major financial topics.",
@@ -84,7 +112,7 @@ const NewsPage = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {news.map((article, index) => (
               <div
-                key={index}
+                key={`${index}-${article.title.substring(0, 10)}`}
                 className="bg-green-300 bg-opacity-80 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200"
               >
                 <NextSeo

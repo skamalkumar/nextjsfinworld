@@ -95,7 +95,7 @@ const handleSubmit = async (e) => {
         <rect width="30" height="6.667" y="13.333" fill="#138808"/>
         <circle cx="15" cy="10" r="3.333" fill="#000080"/>
     </svg>
-    Indian Office
+    India Office
 </h3>
         <p className="text-gray-600 text-center text-lg leading-relaxed mb-6">
           Ward No 28, Behind Christian Hospital, Burhar Road, Shahdol, MP 484001
@@ -192,19 +192,28 @@ const handleSubmit = async (e) => {
       {/* London Address Section */}
       <div className="p-8 bg-gray-50">
       <h3 className="text-2xl font-bold text-gray-700 mb-4 text-center flex items-center justify-center">
-    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" viewBox="0 0 60 30" className="mr-2">
-        <clipPath id="s">
-            <path d="M0,0 v30 h60 v-30 z"/>
-        </clipPath>
-        <clipPath id="t">
-            <path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/>
-        </clipPath>
-        <g clipPath="url(#s)">
-            <path d="M0,0 v30 h60 v-30 z" fill="#012169"/>
-            <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" strokeWidth="6"/>
-            <path d="M0,0 L60,30 M60,0 L0,30" clipPath="url(#t)" stroke="#C8102E" strokeWidth="4"/>
-        </g>
-        </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" viewBox="0 0 60 30">
+    <clipPath id="flag-clip">
+        <rect width="60" height="30"/>
+    </clipPath>
+    
+    <g clip-path="url(#flag-clip)">
+        {/* Blue background */}
+        <rect width="60" height="30" fill="#012169"/>
+        
+        {/* White saltire (diagonal cross) */}
+        <path d="M0,0 L60,30 M60,0 L0,30" stroke="#FFFFFF" stroke-width="6"/>
+        
+        {/* Red saltire (diagonal cross) */}
+        <path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/>
+        
+        {/* White St. George's Cross */}
+        <path d="M30,0 V30 M0,15 H60" stroke="#FFFFFF" stroke-width="10"/>
+        
+        {/* Red St. George's Cross */}
+        <path d="M30,0 V30 M0,15 H60" stroke="#C8102E" stroke-width="6"/>
+    </g>
+</svg>
          UK Office
         </h3>
         <p className="text-gray-600 text-center text-lg leading-relaxed mb-6">
