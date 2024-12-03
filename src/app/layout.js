@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
 
         {/* Google Analytics Script */}
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-FWZJE5ELJC" // Replace G-XXXXXXXXXX with your Measurement ID
+          src="https://www.googletagmanager.com/gtag/js?id=G-TD29YBP18H" // Replace G-XXXXXXXXXX with your Measurement ID
           strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
@@ -38,7 +38,7 @@ export default function RootLayout({ children }) {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-FWZJE5ELJC'); // Replace G-XXXXXXXXXX with your Measurement ID
+            gtag('config', 'G-TD29YBP18H'); // Replace G-XXXXXXXXXX with your Measurement ID
           `}
         </Script>
       </head>
