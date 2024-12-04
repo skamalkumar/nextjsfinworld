@@ -38,7 +38,7 @@ const generateSitemap = () => {
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     ${routes
       .map((route) => {
-        const loc = `https://finworldltd.online${route}`;
+        const loc = `https://www.finworldltd.online${route}`;
         return `
         <url>
           <loc>${loc}</loc>
