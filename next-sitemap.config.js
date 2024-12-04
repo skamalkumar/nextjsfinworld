@@ -1,11 +1,11 @@
-export default {
+module.exports = {
   siteUrl: 'https://finworldltd.online',
   generateRobotsTxt: true,
   changefreq: 'daily',
   priority: 0.7,
   exclude: ['/404'],
   transform: async (config, path) => {
-    if (path === '/dynamic-path') {
+    if (path === '/dynamic-route') {
       return {
         loc: path,
         changefreq: 'weekly',
@@ -18,4 +18,7 @@ export default {
       priority: 0.7,
     };
   },
+  additionalPaths: async (config) => [
+    { loc: '/custom-page', changefreq: 'daily', priority: 0.8 },
+  ],
 };
