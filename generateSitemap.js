@@ -5,40 +5,39 @@ const path = require('path');
 // Function to get routes from the src/app directory
 const getRoutes = () => {
   // Use glob to find all page.jsx files in src/app
-  const files = glob.sync('src/app/**/*/page.jsx'); // Adjust file extension as needed
+  const files = glob.sync('src/app/**/page.jsx');
 
-  console.log('Raw file paths:', files); // Debugging log
+  return files
+    .map((file) => {
+      // Normalize file path separators
+      const normalizedPath = file.replace(/\\/g, '/'); 
 
-  return files.map((file) => {
-    // Log the file being processed
-    console.log('Processing file:', file);
+      // Remove 'src/app' prefix and '/page.jsx' suffix
+      let route = normalizedPath
+        .replace(/^src\/app/, '') // Remove src/app prefix
+        .replace(/\/page\.jsx$/, ''); // Remove /page.jsx suffix
 
-    // Remove 'src/app' and file extension '.jsx' from the file path
-    let route = file.replace('src/app', '').replace('/page.jsx', ''); 
+      // Handle root route
+      if (route === '' || route === '/index') {
+        return '/';
+      }
 
-    // Handle case for the root path, which should be '/'
-    if (route === '/index') {
-      route = '/';
-    }
-
-    // Replace backslashes with forward slashes (for Windows compatibility)
-    route = route.replace(/\\/g, '/');
-
-    // Log the modified route
-    console.log('Modified route:', route);
-
-    return route;
-  });
+      // Ensure route starts with a forward slash
+      return `/${route.replace(/^\/+/, '')}`;
+    })
+    .filter(route => route); // Remove any null or undefined routes
 };
 
 // Generate sitemap based on the detected routes
 const generateSitemap = () => {
   const routes = getRoutes();
+
+  console.log('Generated Routes:', routes); // Debug log to see actual routes
+
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     ${routes
       .map((route) => {
-        // Concatenate the base URL with the sanitized route
         const loc = `https://finworldltd.online${route}`;
         return `
         <url>
@@ -52,8 +51,14 @@ const generateSitemap = () => {
       .join('')}
   </urlset>`;
 
+  // Ensure public directory exists
+  const publicDir = path.join('public');
+  if (!fs.existsSync(publicDir)) {
+    fs.mkdirSync(publicDir);
+  }
+
   // Write the generated sitemap to public/sitemap.xml
-  fs.writeFileSync(path.join('public', 'sitemap.xml'), sitemap);
+  fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemap);
   console.log('Sitemap generated successfully!');
 };
 
