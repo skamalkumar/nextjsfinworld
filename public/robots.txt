@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://finworldltd.online
+
+# Sitemaps
+Sitemap: https://finworldltd.online/sitemap.xml
