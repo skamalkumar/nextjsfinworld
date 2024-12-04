@@ -1,4 +1,137 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url><loc>https://finworldltd.online/custom-page</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
-</urlset>
+  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    
+        <url>
+          <loc>https://finworldltd.onlinesrc/app/register/page.jsx</loc>
+          <lastmod>2024-12-04T08:33:34.946Z</lastmod>
+          <changefreq>daily</changefreq>
+          <priority>0.7</priority>
+        </url>
+        
+        <url>
+          <loc>https://finworldltd.onlinesrc/app/posts/page.jsx</loc>
+          <lastmod>2024-12-04T08:33:34.947Z</lastmod>
+          <changefreq>daily</changefreq>
+          <priority>0.7</priority>
+        </url>
+        
+        <url>
+          <loc>https://finworldltd.onlinesrc/app/newspage/page.jsx</loc>
+          <lastmod>2024-12-04T08:33:34.947Z</lastmod>
+          <changefreq>daily</changefreq>
+          <priority>0.7</priority>
+        </url>
+        
+        <url>
+          <loc>https://finworldltd.onlinesrc/app/mutual-funds/page.jsx</loc>
+          <lastmod>2024-12-04T08:33:34.947Z</lastmod>
+          <changefreq>daily</changefreq>
+          <priority>0.7</priority>
+        </url>
+        
+        <url>
+          <loc>https://finworldltd.onlinesrc/app/login/page.jsx</loc>
+          <lastmod>2024-12-04T08:33:34.947Z</lastmod>
+          <changefreq>daily</changefreq>
+          <priority>0.7</priority>
+        </url>
+        
+        <url>
+          <loc>https://finworldltd.onlinesrc/app/home/page.jsx</loc>
+          <lastmod>2024-12-04T08:33:34.947Z</lastmod>
+          <changefreq>daily</changefreq>
+          <priority>0.7</priority>
+        </url>
+        
+        <url>
+          <loc>https://finworldltd.onlinesrc/app/funda/page.jsx</loc>
+          <lastmod>2024-12-04T08:33:34.947Z</lastmod>
+          <changefreq>daily</changefreq>
+          <priority>0.7</priority>
+        </url>
+        
+        <url>
+          <loc>https://finworldltd.onlinesrc/app/financialplanning/willplanning/page.jsx</loc>
+          <lastmod>2024-12-04T08:33:34.947Z</lastmod>
+          <changefreq>daily</changefreq>
+          <priority>0.7</priority>
+        </url>
+        
+        <url>
+          <loc>https://finworldltd.onlinesrc/app/financialplanning/taxplanning/page.jsx</loc>
+          <lastmod>2024-12-04T08:33:34.947Z</lastmod>
+          <changefreq>daily</changefreq>
+          <priority>0.7</priority>
+        </url>
+        
+        <url>
+          <loc>https://finworldltd.onlinesrc/app/financialplanning/investmentplanning/page.jsx</loc>
+          <lastmod>2024-12-04T08:33:34.947Z</lastmod>
+          <changefreq>daily</changefreq>
+          <priority>0.7</priority>
+        </url>
+        
+        <url>
+          <loc>https://finworldltd.onlinesrc/app/financialplanning/insuranceplanning/propertyinsurance/page.jsx</loc>
+          <lastmod>2024-12-04T08:33:34.947Z</lastmod>
+          <changefreq>daily</changefreq>
+          <priority>0.7</priority>
+        </url>
+        
+        <url>
+          <loc>https://finworldltd.onlinesrc/app/financialplanning/insuranceplanning/lifeinsurance/page.jsx</loc>
+          <lastmod>2024-12-04T08:33:34.947Z</lastmod>
+          <changefreq>daily</changefreq>
+          <priority>0.7</priority>
+        </url>
+        
+        <url>
+          <loc>https://finworldltd.onlinesrc/app/financialplanning/insuranceplanning/healthinsurance/page.jsx</loc>
+          <lastmod>2024-12-04T08:33:34.947Z</lastmod>
+          <changefreq>daily</changefreq>
+          <priority>0.7</priority>
+        </url>
+        
+        <url>
+          <loc>https://finworldltd.onlinesrc/app/financialplanning/insuranceplanning/accidentinsurance/page.jsx</loc>
+          <lastmod>2024-12-04T08:33:34.947Z</lastmod>
+          <changefreq>daily</changefreq>
+          <priority>0.7</priority>
+        </url>
+        
+        <url>
+          <loc>https://finworldltd.onlinesrc/app/financialhealthscore/page.jsx</loc>
+          <lastmod>2024-12-04T08:33:34.947Z</lastmod>
+          <changefreq>daily</changefreq>
+          <priority>0.7</priority>
+        </url>
+        
+        <url>
+          <loc>https://finworldltd.onlinesrc/app/contactus/page.jsx</loc>
+          <lastmod>2024-12-04T08:33:34.947Z</lastmod>
+          <changefreq>daily</changefreq>
+          <priority>0.7</priority>
+        </url>
+        
+        <url>
+          <loc>https://finworldltd.onlinesrc/app/blog/page.jsx</loc>
+          <lastmod>2024-12-04T08:33:34.947Z</lastmod>
+          <changefreq>daily</changefreq>
+          <priority>0.7</priority>
+        </url>
+        
+        <url>
+          <loc>https://finworldltd.onlinesrc/app/admin/page.jsx</loc>
+          <lastmod>2024-12-04T08:33:34.947Z</lastmod>
+          <changefreq>daily</changefreq>
+          <priority>0.7</priority>
+        </url>
+        
+        <url>
+          <loc>https://finworldltd.onlinesrc/app/aboutus/page.jsx</loc>
+          <lastmod>2024-12-04T08:33:34.947Z</lastmod>
+          <changefreq>daily</changefreq>
+          <priority>0.7</priority>
+        </url>
+        
+  </urlset>
