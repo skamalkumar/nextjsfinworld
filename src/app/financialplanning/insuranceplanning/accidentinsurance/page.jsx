@@ -60,7 +60,7 @@ const AccidentInsurance = () => {
           <h2 className="text-2xl font-semibold mb-4 text-blue-800">Complete Your Information:</h2>
 
           <form className="space-y-4">
-            {[
+            {[ 
               { label: "Annual Income (₹):", name: "annualIncome" },
               { label: "Monthly Living Expenses (₹):", name: "monthlyLivingExpenses" },
               { label: "Outstanding Debts (₹):", name: "outstandingDebts" },
@@ -96,6 +96,28 @@ const AccidentInsurance = () => {
               <p className="text-center text-gray-700 text-xl mt-2">₹{totalCoverage.toLocaleString()}</p>
             </div>
           )}
+          
+          <div className="mt-8">
+            <h3 className="text-xl font-semibold text-blue-800">Government Resources for Accident Insurance</h3>
+            <ul className="list-disc pl-5 text-gray-700">
+              <li>
+                <a href="https://www.india.gov.in/spotlight/accident-insurance" target="_blank" className="text-blue-500 hover:underline">
+                  National Accident Insurance Scheme - Government of India
+                </a>
+              </li>
+              <li>
+                <a href="https://www.pmjjby.gov.in/" target="_blank" className="text-blue-500 hover:underline">
+                  Pradhan Mantri Jeevan Jyoti Bima Yojana (PMJJBY)
+                </a>
+              </li>
+              <li>
+                <a href="https://www.msde.gov.in/" target="_blank" className="text-blue-500 hover:underline">
+                  Ministry of Skill Development and Entrepreneurship - Government of India
+                </a>
+              </li>
+            </ul>
+          </div>
+
         </div>
       </div>
     </>

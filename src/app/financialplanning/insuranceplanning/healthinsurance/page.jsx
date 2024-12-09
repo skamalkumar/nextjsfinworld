@@ -147,6 +147,33 @@ const HealthInsurancePlanning = () => {
               <p><strong>Total Coverage Needed:</strong> ₹{insuranceNeeds.totalCoverageNeeded.toLocaleString()}</p>
             </div>
           )}
+
+<div className="mt-8">
+  <h3 className="text-xl font-semibold text-blue-800">Government Resources</h3>
+  <ul className="list-disc pl-5 text-gray-700">
+     <li>
+      <a href="https://www.nhm.gov.in/" target="_blank" className="text-blue-500 hover:underline">
+        National Health Mission - Government of India
+      </a>
+    </li>
+    <li>
+      <a href="https://www.pmjay.gov.in/" target="_blank" className="text-blue-500 hover:underline">
+        Ayushman Bharat - Pradhan Mantri Jan Arogya Yojana (PMJAY)
+      </a>
+    </li>
+    <li>
+      <a href="https://www.mohfw.gov.in/" target="_blank" className="text-blue-500 hover:underline">
+        Ministry of Health and Family Welfare - Government of India
+      </a>
+    </li>
+    <li>
+      <a href="https://www.ncdc.gov.in/" target="_blank" className="text-blue-500 hover:underline">
+        National Centre for Disease Control (NCDC) - Government of India
+      </a>
+    </li>
+  </ul>
+</div>
+
         </section>
       </main>
   

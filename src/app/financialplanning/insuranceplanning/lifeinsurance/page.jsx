@@ -128,6 +128,27 @@ const LifeInsurancePlanning = () => {
               <p><strong>Total Coverage Needed:</strong> ₹{insuranceNeeds.totalNeeds.toLocaleString()}</p>
             </div>
           )}
+
+<div className="mt-8">
+            <h3 className="text-xl font-semibold text-blue-800">Government Resources</h3>
+            <ul className="list-disc pl-5 text-gray-700">
+              <li>
+                <a href="https://www.incometaxindia.gov.in/pages/tax-information-services.aspx" target="_blank" className="text-blue-500 hover:underline">
+                  Income Tax Department - Government of India
+                </a>
+              </li>
+              <li>
+                <a href="https://www.india.gov.in/spotlight/life-insurance-corporation-india" target="_blank" className="text-blue-500 hover:underline">
+                  Life Insurance Corporation (LIC) of India
+                </a>
+              </li>
+              <li>
+                <a href="https://www.sebi.gov.in/" target="_blank" className="text-blue-500 hover:underline">
+                  Securities and Exchange Board of India (SEBI)
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </>

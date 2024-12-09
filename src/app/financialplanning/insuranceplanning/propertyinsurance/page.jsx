@@ -144,6 +144,15 @@ const PropertyInsurancePlanning = () => {
               <p><strong>Liability Coverage Amount Needed:</strong> ₹{insuranceNeeds.liabilityCoverage.toLocaleString()}</p>
             </div>
           )}
+
+          <div className="mt-8">
+            <h3 className="text-xl font-semibold text-blue-900">For more information on property insurance, check out:</h3>
+            <ul className="list-disc pl-6 mt-2 text-blue-700">
+              <li><a href="https://www.irdai.gov.in/" target="_blank" rel="noopener noreferrer">Insurance Regulatory and Development Authority of India (IRDAI)</a></li>
+              <li><a href="https://www.iii.org/" target="_blank" rel="noopener noreferrer">Insurance Information Institute (III)</a></li>
+              <li><a href="https://www.naic.org/" target="_blank" rel="noopener noreferrer">National Association of Insurance Commissioners (NAIC)</a></li>
+            </ul>
+          </div>
         </div>
       </div>
     </>
