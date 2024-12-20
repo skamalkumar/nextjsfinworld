@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { FaBars, FaTimes, FaFacebook, FaYoutube, FaLinkedin } from "react-icons/fa"; // Import icons
 import AuthButton from "./AuthButton"; // Import the AuthButton component
 import FinancialPlanningDropdown from "./financialplanningdropdown";
 
@@ -65,23 +65,14 @@ export default function Header() {
         <Link href="/blog" className="text-white hover:text-gray-300 hover:underline">
           Blog
         </Link>
-        <Link
-          href="/newspage"
-          className="text-white hover:text-gray-300 hover:underline"
-        >
+        <Link href="/newspage" className="text-white hover:text-gray-300 hover:underline">
           News
         </Link>
         <FinancialPlanningDropdown />
-        <Link
-          href="/aboutus"
-          className="text-white hover:text-gray-300 hover:underline"
-        >
+        <Link href="/aboutus" className="text-white hover:text-gray-300 hover:underline">
           About Us
         </Link>
-        <Link
-          href="/contactus"
-          className="text-white hover:text-gray-300 hover:underline"
-        >
+        <Link href="/contactus" className="text-white hover:text-gray-300 hover:underline">
           Contact Us
         </Link>
       </nav>
@@ -96,49 +87,40 @@ export default function Header() {
           }}
         >
           <nav className="flex flex-col items-center space-y-4">
-            <Link
-              href="/"
-              className="text-white hover:text-gray-300 text-lg"
-              onClick={closeMenu}
-            >
+            <Link href="/" className="text-white hover:text-gray-300 text-lg" onClick={closeMenu}>
               Home
             </Link>
-            <Link
-              href="/blog"
-              className="text-white hover:text-gray-300 text-lg"
-              onClick={closeMenu}
-            >
+            <Link href="/blog" className="text-white hover:text-gray-300 text-lg" onClick={closeMenu}>
               Blog
             </Link>
-            <Link
-              href="/newspage"
-              className="text-white hover:text-gray-300 text-lg"
-              onClick={closeMenu}
-            >
+            <Link href="/newspage" className="text-white hover:text-gray-300 text-lg" onClick={closeMenu}>
               News
             </Link>
             <FinancialPlanningDropdown />
-            <Link
-              href="/aboutus"
-              className="text-white hover:text-gray-300 text-lg"
-              onClick={closeMenu}
-            >
+            <Link href="/aboutus" className="text-white hover:text-gray-300 text-lg" onClick={closeMenu}>
               About Us
             </Link>
-            <Link
-              href="/contactus"
-              className="text-white hover:text-gray-300 text-lg"
-              onClick={closeMenu}
-            >
+            <Link href="/contactus" className="text-white hover:text-gray-300 text-lg" onClick={closeMenu}>
               Contact Us
             </Link>
           </nav>
         </div>
       )}
 
-      {/* Right-side Auth Button */}
-      <div className="bg-blue-400 text-white py-2 px-4 rounded hover:bg-blue-300">
-        <AuthButton /> {/* Replace Log In link with AuthButton */}
+      {/* Right-side Auth Button with Icons */}
+      <div className="flex items-center space-x-4">
+        <a href="https://www.facebook.com/thefinworldltd" target="_blank" rel="noopener noreferrer" className="text-white text-2xl hover:text-blue-500">
+          <FaFacebook />
+        </a>
+        <a href="https://www.youtube.com/@FinWorldLtd" target="_blank" rel="noopener noreferrer" className="text-white text-2xl hover:text-red-500">
+          <FaYoutube />
+        </a>
+        <a href="https://www.linkedin.com/in/kamalsrungarapu/" target="_blank" rel="noopener noreferrer" className="text-white text-2xl hover:text-blue-400">
+          <FaLinkedin />
+        </a>
+        <div className="bg-blue-400 text-white py-2 px-4 rounded hover:bg-blue-300">
+          <AuthButton /> {/* Replace Log In link with AuthButton */}
+        </div>
       </div>
     </header>
   );
