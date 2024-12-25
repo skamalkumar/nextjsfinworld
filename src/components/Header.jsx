@@ -2,19 +2,19 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
-import AuthButton from "./AuthButton"; // Import the AuthButton component
+import AuthButton from "./AuthButton";
 import FinancialPlanningDropdown from "./financialplanningdropdown";
+import SocialMediaDropdown from "./SocialMediaDropdown";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Timer to close the menu after 3 seconds
   useEffect(() => {
     if (isOpen) {
       const timer = setTimeout(() => {
         setIsOpen(false);
       }, 5000);
-      return () => clearTimeout(timer); // Cleanup timer when component unmounts or state changes
+      return () => clearTimeout(timer);
     }
   }, [isOpen]);
 
@@ -57,87 +57,62 @@ export default function Header() {
       </div>
 
       {/* Desktop Nav */}
-      <nav className="hidden md:flex space-x-4">
+      <nav className="hidden md:flex items-center space-x-4">
         <Link href="/" className="text-white hover:text-gray-300 hover:underline">
           Home
         </Link>
         <Link href="/blog" className="text-white hover:text-gray-300 hover:underline">
           Blog
         </Link>
-        <Link
-          href="/newspage"
-          className="text-white hover:text-gray-300 hover:underline"
-        >
+        <Link href="/newspage" className="text-white hover:text-gray-300 hover:underline">
           News
         </Link>
         <FinancialPlanningDropdown />
-        <Link
-          href="/aboutus"
-          className="text-white hover:text-gray-300 hover:underline"
-        >
+        <Link href="/aboutus" className="text-white hover:text-gray-300 hover:underline">
           About Us
         </Link>
-        <Link
-          href="/contactus"
-          className="text-white hover:text-gray-300 hover:underline"
-        >
+        <Link href="/contactus" className="text-white hover:text-gray-300 hover:underline">
           Contact Us
         </Link>
+        <SocialMediaDropdown />
       </nav>
 
-      {/* Mobile Nav with Overlay (Half Screen) */}
+      {/* Mobile Nav with Overlay */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-blue-900 bg-opacity-95 flex flex-col items-center justify-center z-50 w-3/4"
           style={{
             backdropFilter: "blur(10px)",
-            left: 0, // Positions the menu on the left side of the screen
+            left: 0,
           }}
         >
           <nav className="flex flex-col items-center space-y-4">
-            <Link
-              href="/"
-              className="text-white hover:text-gray-300 text-lg"
-              onClick={closeMenu}
-            >
+            <Link href="/" className="text-white hover:text-gray-300 text-lg" onClick={closeMenu}>
               Home
             </Link>
-            <Link
-              href="/blog"
-              className="text-white hover:text-gray-300 text-lg"
-              onClick={closeMenu}
-            >
+            <Link href="/blog" className="text-white hover:text-gray-300 text-lg" onClick={closeMenu}>
               Blog
             </Link>
-            <Link
-              href="/newspage"
-              className="text-white hover:text-gray-300 text-lg"
-              onClick={closeMenu}
-            >
+            <Link href="/newspage" className="text-white hover:text-gray-300 text-lg" onClick={closeMenu}>
               News
             </Link>
             <FinancialPlanningDropdown />
-            <Link
-              href="/aboutus"
-              className="text-white hover:text-gray-300 text-lg"
-              onClick={closeMenu}
-            >
+            <Link href="/aboutus" className="text-white hover:text-gray-300 text-lg" onClick={closeMenu}>
               About Us
             </Link>
-            <Link
-              href="/contactus"
-              className="text-white hover:text-gray-300 text-lg"
-              onClick={closeMenu}
-            >
+            <Link href="/contactus" className="text-white hover:text-gray-300 text-lg" onClick={closeMenu}>
               Contact Us
             </Link>
+            <div className="mt-4">
+              <SocialMediaDropdown />
+            </div>
           </nav>
         </div>
       )}
 
       {/* Right-side Auth Button */}
       <div className="bg-blue-400 text-white py-2 px-4 rounded hover:bg-blue-300">
-        <AuthButton /> {/* Replace Log In link with AuthButton */}
+        <AuthButton />
       </div>
     </header>
   );
