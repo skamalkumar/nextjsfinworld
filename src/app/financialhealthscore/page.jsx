@@ -53,6 +53,8 @@ const FinancialHealthScore = () => {
   };
 
   return (
+    <div className="min-h-screen m-3 flex flex-col items-center justify-center bg-gradient-to-r from-green-400 to-blue-500 p-4 rounded-md">
+    <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 max-w-4xl">
     <div className="min-h-screen flex flex-col items-center justify-center bg-blue-50 p-4">
       <div className="w-full max-w-md bg-white shadow-2xl rounded-2xl p-8">
         <h1 className="text-3xl font-bold text-blue-700 text-center mb-6">
@@ -181,6 +183,8 @@ const FinancialHealthScore = () => {
           </div>
         )}
       </div>
+    </div>
+    </div>
     </div>
   );
 };

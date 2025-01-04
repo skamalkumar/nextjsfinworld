@@ -44,7 +44,7 @@ export default function HeroSection() {
               return {
                 slug: baseSlug,
                 imageUrl,
-                title,
+                title
               };
             })
           );
@@ -87,23 +87,21 @@ export default function HeroSection() {
   }
 
   return (
-    <section className="flex flex-col lg:flex-row justify-between items-center bg-gray-800 text-white py-16 px-6 lg:px-12 rounded-md mx-4 my-2 relative">
+    <section className="flex flex-col lg:flex-row justify-between items-center bg-blue-600 text-white py-12 px-4 lg:px-8 rounded-md mx-4 my-2">
       {/* Text Content */}
-      <div className="max-w-lg mb-10 lg:mb-0">
-        <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-6 text-blue-300">
-          Empower Your Financial Future with Experts You Can Trust
-        </h1>
-        <p className="mb-8 text-base md:text-lg leading-relaxed text-gray-300">
-          Discover cutting-edge investment strategies and innovative solutions tailored for your financial growth and stability. Your success is our mission.
+      <div className="max-w-lg mb-8 lg:mb-0">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4">The Future of Wealth Management</h1>
+        <p className="mb-6 text-sm md:text-base">
+        Amplify your financial potential with elite investment intelligence, powered by state-of-the-art technology – zero barriers, zero cost, maximum impact.
         </p>
         <Link href="/contactus">
-          <button className="bg-blue-600 text-white py-3 px-6 rounded-md hover:bg-blue-500 transition-all">
-            Get Started
-          </button>
-        </Link>
+     <button className="bg-blue-500 text-white py-2 px-4 md:py-3 md:px-6 rounded hover:bg-blue-400">
+         Find Out More
+      </button>
+    </Link>
       </div>
 
-      {/* Sliding Carousel */}
+      {/* Sliding Container */}
       <div className="relative w-full lg:w-1/2 aspect-video overflow-hidden rounded-lg shadow-lg">
         <div
           className="flex transition-transform duration-500 ease-in-out"
@@ -120,17 +118,17 @@ export default function HeroSection() {
                 className="block relative aspect-video"
               >
                 {/* Image */}
-                <div className="aspect-video overflow-hidden rounded-lg bg-gray-300">
+                <div className="aspect-video overflow-hidden rounded-lg bg-gray-200">
                   <img
                     src={item.imageUrl}
                     alt={`Image for ${item.slug}`}
-                    className="object-cover w-full h-full transition-transform duration-500 hover:scale-105"
+                    className="object-cover w-full h-full transition-transform duration-500 hover:scale-110"
                   />
                 </div>
-
+                
                 {/* Title Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
-                  <h3 className="text-white text-lg font-semibold capitalize">
+                  <h3 className="text-white text-base md:text-lg font-semibold capitalize">
                     {item.title}
                   </h3>
                 </div>
@@ -143,14 +141,14 @@ export default function HeroSection() {
         <button
           onClick={prevSlide}
           disabled={isAnimating}
-          className="absolute top-1/2 left-3 transform -translate-y-1/2 bg-black/60 text-white p-2 rounded-full hover:bg-black/80 transition-all"
+          className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-black/50 text-white p-2 md:p-3 rounded-full hover:bg-black/70 transition-colors"
         >
           &#10094;
         </button>
         <button
           onClick={nextSlide}
           disabled={isAnimating}
-          className="absolute top-1/2 right-3 transform -translate-y-1/2 bg-black/60 text-white p-2 rounded-full hover:bg-black/80 transition-all"
+          className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-black/50 text-white p-2 md:p-3 rounded-full hover:bg-black/70 transition-colors"
         >
           &#10095;
         </button>
@@ -167,8 +165,8 @@ export default function HeroSection() {
                   setTimeout(() => setIsAnimating(false), 500);
                 }
               }}
-              className={`w-3 h-3 rounded-full transition-all ${
-                currentIndex === index ? 'bg-white' : 'bg-gray-500'
+              className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all ${
+                currentIndex === index ? 'bg-white w-4' : 'bg-white/50'
               }`}
             />
           ))}
