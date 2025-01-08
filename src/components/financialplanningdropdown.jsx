@@ -195,6 +195,14 @@ const FinancialPlanningDropdown = () => {
               Financial Milestones
             </Link>
           </li>
+          <li className="mb-1">
+            <Link
+              href="/financialplanning/sampleplan"
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white rounded-md"
+            >
+              Sample Plan
+            </Link>
+          </li>
         </ul>
       )}
     </div>
