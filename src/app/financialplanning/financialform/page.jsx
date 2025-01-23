@@ -99,6 +99,7 @@ const FinancialForm = () => {
 
     addSection('III. Income and Expenses', null, true);
     addSection('Monthly Income: ', formData.monthlyIncome);
+    addSection('Other Income: ', formData.otherIncome);
     addSection('Fixed Expenses: ', formData.fixedExpenses);
     addSection('Variable Expenses: ', formData.variableExpenses);
 
@@ -134,7 +135,7 @@ const FinancialForm = () => {
 
   return (
      <div className="min-h-screen m-3 flex flex-col items-center justify-center bg-gradient-to-r from-green-400 to-blue-500 p-4 rounded-md">
-      <h1 className="text-2xl font-bold text-white mb-6">Personal Financial Information</h1>
+      <h1 className="text-2xl font-bold text-white mb-6">Comprehensive Financial Form</h1>
       <form onSubmit={handleSubmit} className="w-full max-w-lg bg-white p-8 rounded-md shadow-md">
         <section className="mb-6">
           <h2 className="text-xl font-semibold mb-4 text-gray-800">I. Personal Information</h2>
@@ -169,6 +170,10 @@ const FinancialForm = () => {
             <div className="mb-4 flex items-center">
               <label className="block text-gray-700 text-sm font-bold mr-2 w-40">Monthly Income:</label>
                <input type="number" name="monthlyIncome" value={formData.monthlyIncome} onChange={handleChange} className="border border-gray-300 rounded px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </div>
+            <div className="mb-4 flex items-center">
+              <label className="block text-gray-700 text-sm font-bold mr-2 w-40">Other Income:</label>
+               <input type="number" name="otherIncome" value={formData.otherIncome} onChange={handleChange} className="border border-gray-300 rounded px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
             </div>
             <div className="mb-4 flex items-center">
               <label className="block text-gray-700 text-sm font-bold mr-2 w-40">Fixed Expenses:</label>

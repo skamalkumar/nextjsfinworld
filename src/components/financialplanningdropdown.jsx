@@ -143,14 +143,12 @@ const FinancialPlanningDropdown = () => {
                     Property Insurance
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    href="/financialplanning/insuranceplanning/financialform"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white rounded-md"
-                  >
-                    Comprehensive Financial Form
-                  </Link>
-                </li>
+                <Link
+              href="/financialplanning/sampleplan"
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white rounded-md"
+            >
+              Sample Plan
+            </Link>
               </ul>
             )}
           </li>
@@ -204,12 +202,14 @@ const FinancialPlanningDropdown = () => {
             </Link>
           </li>
           <li className="mb-1">
-            <Link
-              href="/financialplanning/sampleplan"
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white rounded-md"
-            >
-              Sample Plan
-            </Link>
+          <li>
+                  <Link
+                    href="/financialplanning/financialform"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white rounded-md"
+                  >
+                    Comprehensive Financial Form
+                  </Link>
+               </li>
           </li>
         </ul>
       )}
