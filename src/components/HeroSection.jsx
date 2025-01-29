@@ -2,69 +2,22 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
+const imageFiles = [
+  "5 Mantras for Successful Investments.jpeg",
+  "Are Your Investments Working.jpeg",
+  "overcome inflation with investing.jpeg",
+  "sip-pill.jpg",
+  "think decades not days.jpeg"
+];
+
 export default function HeroSection() {
-  const [carouselItems, setCarouselItems] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [loading, setLoading] = useState(true);
   const [isAnimating, setIsAnimating] = useState(false);
-
-  useEffect(() => {
-    const fetchCarouselData = async () => {
-      try {
-        const response = await fetch(
-          "https://api.github.com/repos/skamalkumar/finworldarticles/contents/content/articles"
-        );
-        const data = await response.json();
-
-        if (Array.isArray(data)) {
-          const postFiles = data.filter((item) => item.name.endsWith(".html"));
-
-          const items = await Promise.all(
-            postFiles.map(async (post) => {
-              const baseSlug = post.name.replace(".html", "");
-              const title = baseSlug.split("-").join(" ");
-              const extensions = [".webp", ".jpg", ".png"];
-              let imageUrl = null;
-
-              for (const ext of extensions) {
-                const encodedImageFileName = encodeURIComponent(baseSlug + ext);
-                const potentialUrl = `https://raw.githubusercontent.com/skamalkumar/finworldarticles/main/content/images/${encodedImageFileName}`;
-
-                try {
-                  const imageResponse = await fetch(potentialUrl);
-                  if (imageResponse.ok) {
-                    imageUrl = potentialUrl;
-                    break;
-                  }
-                } catch (error) {
-                  console.error(`Error checking image at: ${potentialUrl}`, error);
-                }
-              }
-
-              return {
-                slug: baseSlug,
-                imageUrl,
-                title,
-              };
-            })
-          );
-
-          setCarouselItems(items.filter((item) => item.imageUrl));
-        }
-      } catch (error) {
-        console.error("Error fetching carousel data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCarouselData();
-  }, []);
 
   const nextSlide = () => {
     if (!isAnimating) {
       setIsAnimating(true);
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % carouselItems.length);
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % imageFiles.length);
       setTimeout(() => setIsAnimating(false), 500);
     }
   };
@@ -72,7 +25,7 @@ export default function HeroSection() {
   const prevSlide = () => {
     if (!isAnimating) {
       setIsAnimating(true);
-      setCurrentIndex((prevIndex) => (prevIndex - 1 + carouselItems.length) % carouselItems.length);
+      setCurrentIndex((prevIndex) => (prevIndex - 1 + imageFiles.length) % imageFiles.length);
       setTimeout(() => setIsAnimating(false), 500);
     }
   };
@@ -80,11 +33,7 @@ export default function HeroSection() {
   useEffect(() => {
     const interval = setInterval(nextSlide, 5000); // Auto-advance every 5 seconds
     return () => clearInterval(interval);
-  }, [carouselItems.length]);
-
-  if (loading) {
-    return <div>Loading carousel...</div>;
-  }
+  }, []);
 
   return (
     <section className="flex flex-col lg:flex-row justify-between items-center bg-gray-800 text-white py-16 px-6 lg:px-12 rounded-md mx-4 my-2 relative">
@@ -94,7 +43,7 @@ export default function HeroSection() {
           Empower Your Financial Future with Experts You Can Trust
         </h1>
         <p className="mb-8 text-base md:text-lg leading-relaxed text-gray-300">
-          Discover cutting-edge investment strategies and innovative solutions tailored for your financial growth and stability. Your success is our mission.
+        Globally recognized with SEBI, AMFI, and UK Companies House registrations. We architect personalized financial strategies to build and protect your wealth. Your prosperity drives our purpose
         </p>
         <Link href="/contactus">
           <button className="bg-blue-600 text-white py-3 px-6 rounded-md hover:bg-blue-500 transition-all">
@@ -104,37 +53,20 @@ export default function HeroSection() {
       </div>
 
       {/* Sliding Carousel */}
-      <div className="relative w-full lg:w-1/2 aspect-video overflow-hidden rounded-lg shadow-lg">
+      <div className="relative w-full lg:w-1/2 h-[400px] overflow-hidden rounded-lg shadow-lg">
         <div
-          className="flex transition-transform duration-500 ease-in-out"
-          style={{
-            transform: `translateX(-${currentIndex * 100}%)`,
-          }}
+          className="flex h-full transition-transform duration-500 ease-in-out"
+          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
-          {carouselItems.map((item) => (
-            <div key={item.slug} className="flex-shrink-0 w-full">
-              <Link
-                href={`/blog/${item.slug}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block relative aspect-video"
-              >
-                {/* Image */}
-                <div className="aspect-video overflow-hidden rounded-lg bg-gray-300">
-                  <img
-                    src={item.imageUrl}
-                    alt={`Image for ${item.slug}`}
-                    className="object-cover w-full h-full transition-transform duration-500 hover:scale-105"
-                  />
-                </div>
-
-                {/* Title Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
-                  <h3 className="text-white text-lg font-semibold capitalize">
-                    {item.title}
-                  </h3>
-                </div>
-              </Link>
+          {imageFiles.map((image, index) => (
+            <div key={index} className="flex-shrink-0 w-full h-full">
+              <div className="w-full h-full relative">
+                <img
+                  src={`/images/herosection/${image}`}
+                  alt={image.replace(".jpg", "")}
+                  className="w-full h-full object-contain"
+                />
+              </div>
             </div>
           ))}
         </div>
@@ -157,7 +89,7 @@ export default function HeroSection() {
 
         {/* Dots Navigation */}
         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
-          {carouselItems.map((_, index) => (
+          {imageFiles.map((_, index) => (
             <button
               key={index}
               onClick={() => {
