@@ -119,7 +119,7 @@ const MutualFundsDashboard = () => {
               </motion.div>
               <div className="mt-3">
           <p>
-        <strong>Financial Disclaimer:</strong> Investments are subject to market risks. Please cross check the data or consult your advisor before investing. 
+        <strong>Financial Disclaimer:</strong> Returns mentioned in mutual funds are holding period returns. Please cross check the data or consult your advisor before investing. 
         </p>
       </div>
 

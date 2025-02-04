@@ -21,18 +21,15 @@ const MutualFundsCategoryPage = ({ params }) => {
   const [filteredFunds, setFilteredFunds] = useState([]);
   const [selectedSubcategory, setSelectedSubcategory] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
-  const [loading, setLoading] = useState(true);
-  const router = useRouter();
-
-  const handleFundClick = (fund) => {
-    router.push(`/mutual-funds/${category}/${fund.schemeCode}`);
-  };
-
-  const handleBack = () => {
-    router.push(`/mutual-funds`);
-  };
-
-  useEffect(() => {
+   const [loading, setLoading] = useState(true);
+  const router = useRouter()
+    const handleFundClick = (fund) => {
+          router.push(`/mutual-funds/${category}/${fund.schemeCode}`);
+    };
+    const handleBack = () => {
+         router.push(`/mutual-funds`)
+    }
+   useEffect(() => {
     const fetchFundsData = async () => {
       try {
         const response = await axios.get('https://api.mfapi.in/mf');
@@ -40,7 +37,7 @@ const MutualFundsCategoryPage = ({ params }) => {
       } catch (error) {
         console.error('Error fetching funds:', error);
       } finally {
-        setLoading(false);
+         setLoading(false);
       }
     };
 
@@ -49,8 +46,7 @@ const MutualFundsCategoryPage = ({ params }) => {
 
   const filterFundsByCategoryAndSubcategory = () => {
     let filtered = funds;
-
-    if (category === 'etfs') {
+     if (category === 'etf') {
       filtered = filtered.filter((fund) =>
         fund.schemeName?.toLowerCase().includes('etf')
       );
@@ -78,7 +74,7 @@ const MutualFundsCategoryPage = ({ params }) => {
   }, [category, selectedSubcategory, searchTerm, funds]);
 
   return (
-    <div className="bg-gray-50 min-h-screen">
+     <div className="bg-gray-50 min-h-screen">
       <button
         onClick={handleBack}
         className="px-4 py-2 mb-4 text-white bg-blue-500 rounded-lg hover:bg-blue-600 w-full md:w-auto"
@@ -100,46 +96,49 @@ const MutualFundsCategoryPage = ({ params }) => {
           </div>
 
           {/* Subcategories */}
-          {subcategoryMappings[category]?.length > 0 && (
-            <div className="flex flex-col gap-2">
-              {subcategoryMappings[category].map((subcategory) => (
-                <button
-                  key={subcategory}
-                  onClick={() => {
-                    setSelectedSubcategory(subcategory);
-                  }}
-                  className={`px-4 py-2 text-sm md:text-base rounded-lg transition-colors ${
-                    selectedSubcategory === subcategory
-                      ? 'bg-blue-500 text-white'
-                      : 'bg-gray-200 hover:bg-gray-300'
-                  }`}
-                >
-                  {subcategory}
-                </button>
-              ))}
-            </div>
-          )}
+           {subcategoryMappings[category]?.length > 0 && (
+              <div className="flex flex-col gap-2">
+                {subcategoryMappings[category].map((subcategory) => (
+                  <button
+                    key={subcategory}
+                    onClick={() => {
+                      setSelectedSubcategory(subcategory);
+
+                    }}
+                   className={`px-4 py-2 text-sm md:text-base rounded-lg transition-colors ${
+                      selectedSubcategory === subcategory
+                        ? 'bg-blue-500 text-white'
+                        : 'bg-gray-200 hover:bg-gray-300'
+                    }`}
+                  >
+                    {subcategory}
+                  </button>
+                ))}
+              </div>
+            )}
         </div>
 
         {/* Main Content */}
         <div className="w-full md:w-3/4">
+
+          {/* Funds List */}
           {loading ? (
-            <div className="text-center py-8">Loading funds data...</div>
+           <div className="text-center py-8">Loading funds data...</div>
           ) : filteredFunds.length > 0 ? (
             <div className="grid gap-4">
               {filteredFunds.map((fund, index) => (
-                <div
+                 <div
                   key={`${fund.schemeCode}-${index}`}
                   onClick={() => handleFundClick(fund)}
-                  className="cursor-pointer bg-white shadow-lg rounded-lg p-4 hover:bg-gray-100 transition-colors"
-                >
-                  <h2 className="text-base md:text-lg font-bold break-words">{fund.schemeName}</h2>
-                  <p className="text-sm text-gray-600 mt-2">Code: {fund.schemeCode}</p>
-                </div>
+                 className="cursor-pointer bg-white shadow-lg rounded-lg p-4 hover:bg-gray-100 transition-colors"
+               >
+                 <h2 className="text-base md:text-lg font-bold break-words">{fund.schemeName}</h2>
+                    <p className="text-sm text-gray-600 mt-2">Code: {fund.schemeCode}</p>
+               </div>
               ))}
             </div>
           ) : (
-            <div className="text-center py-8">No funds available for the selected category.</div>
+           <div className="text-center py-8">No funds available for the selected category.</div>
           )}
         </div>
       </div>
