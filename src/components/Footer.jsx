@@ -9,6 +9,9 @@ function Footer() {
     <p className="mt-2 text-sm">
       SEBI Registration No: INZ000163138 | BSE Registration No: AP01668101166717 | NSE Registration No: AP3022002931 | AMFI Registration No: ARN-102132
     </p>
+    <p>
+          <strong>Financial Disclaimer:</strong> Investments are subject to market risks. Please read the offer document carefully and consult your advisor before investing. Past performance is not indicative of future returns.
+    </p>
   </div>
 </footer>
   );
