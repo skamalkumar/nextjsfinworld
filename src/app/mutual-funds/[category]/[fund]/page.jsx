@@ -6,18 +6,20 @@ import { useRouter } from 'next/navigation';
 
 const FundDetails = ({ params }) => {
   const { fund, category } = params;
-   const [navHistory, setNavHistory] = useState([]);
+  const [navHistory, setNavHistory] = useState([]);
   const [returns, setReturns] = useState({});
+  const [cagr, setCagr] = useState({});
   const [loading, setLoading] = useState(true);
-     const router = useRouter()
+  const router = useRouter();
 
-    const handleBack = () => {
-        router.push(`/mutual-funds/${category}`)
-    }
-   useEffect(() => {
+  const handleBack = () => {
+    router.push(`/mutual-funds/${category}`);
+  };
+
+  useEffect(() => {
     const fetchFundDetails = async () => {
       try {
-         const response = await axios.get('https://api.mfapi.in/mf/' + fund);
+        const response = await axios.get('https://api.mfapi.in/mf/' + fund);
         const { data } = response.data;
         setNavHistory(data);
 
@@ -27,10 +29,20 @@ const FundDetails = ({ params }) => {
           const threeYearOldNAV = parseFloat(data.find((_, index) => index === 365 * 3)?.nav) || latestNAV;
           const fiveYearOldNAV = parseFloat(data.find((_, index) => index === 365 * 5)?.nav) || latestNAV;
 
+          const calculateCAGR = (startNAV, endNAV, years) => {
+            return (((endNAV / startNAV) ** (1 / years) - 1) * 100).toFixed(2);
+          };
+
           setReturns({
             '1Y': (((latestNAV - oneYearOldNAV) / oneYearOldNAV) * 100).toFixed(2),
             '3Y': (((latestNAV - threeYearOldNAV) / threeYearOldNAV) * 100).toFixed(2),
             '5Y': (((latestNAV - fiveYearOldNAV) / fiveYearOldNAV) * 100).toFixed(2),
+          });
+
+          setCagr({
+            '1Y': calculateCAGR(oneYearOldNAV, latestNAV, 1),
+            '3Y': calculateCAGR(threeYearOldNAV, latestNAV, 3),
+            '5Y': calculateCAGR(fiveYearOldNAV, latestNAV, 5),
           });
         }
       } catch (error) {
@@ -62,14 +74,17 @@ const FundDetails = ({ params }) => {
               <div className="text-center p-2">
                 <h4 className="text-base md:text-lg font-semibold text-blue-900">1-Year Returns</h4>
                 <p className="text-lg md:text-xl font-bold text-blue-700">{returns['1Y']}%</p>
+                <h4 className="text-sm md:text-base text-blue-600">CAGR: {cagr['1Y']}%</h4>
               </div>
               <div className="text-center p-2">
                 <h4 className="text-base md:text-lg font-semibold text-blue-900">3-Year Returns</h4>
                 <p className="text-lg md:text-xl font-bold text-blue-700">{returns['3Y']}%</p>
+                <h4 className="text-sm md:text-base text-blue-600">CAGR: {cagr['3Y']}%</h4>
               </div>
               <div className="text-center p-2">
                 <h4 className="text-base md:text-lg font-semibold text-blue-900">5-Year Returns</h4>
                 <p className="text-lg md:text-xl font-bold text-blue-700">{returns['5Y']}%</p>
+                <h4 className="text-sm md:text-base text-blue-600">CAGR: {cagr['5Y']}%</h4>
               </div>
             </div>
           </div>
