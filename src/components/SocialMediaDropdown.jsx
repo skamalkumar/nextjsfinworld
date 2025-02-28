@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { FaFacebook, FaYoutube, FaLinkedin, FaShareAlt } from 'react-icons/fa';
+import { FaFacebook, FaYoutube, FaLinkedin, FaShareAlt, FaInstagram } from 'react-icons/fa';
+import { FaPinterest } from "react-icons/fa";
+import {FaXTwitter} from 'react-icons/fa6';
 
 const SocialMediaDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,6 +36,24 @@ const SocialMediaDropdown = () => {
       name: 'LinkedIn',
       icon: <FaLinkedin className="w-5 h-5" />,
       url: 'https://www.linkedin.com/in/kamalsrungarapu/',
+      color: 'hover:text-blue-600'
+    },
+    {
+      name: 'Twitter',
+      icon: <FaXTwitter className="w-5 h-5" />,
+      url: 'https://x.com/HelloFinworld',
+      color: 'hover:text-blue-600'
+    },
+    {
+      name: 'Instagram',
+      icon: <FaInstagram className="w-5 h-5" />,
+      url: 'https://www.instagram.com/hellofinworld',
+      color: 'hover:text-blue-600'
+    },
+    {
+      name: 'Pinterest',
+      icon: <FaPinterest className="w-5 h-5" />,
+      url: 'https://www.pinterest.com/hellofinworld',
       color: 'hover:text-blue-600'
     }
   ];

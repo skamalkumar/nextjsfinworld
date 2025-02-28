@@ -30,7 +30,7 @@ export default function Header() {
     <header className="flex justify-between items-center p-6 bg-blue-900 rounded-md mx-4 my-2">
       <div className="flex items-center space-x-4">
         <img
-          src="/finworld-logo.webp"
+          src="/FinWorld-Logo.png"
           alt="Finworld Logo"
           className="h-12 w-12 object-cover rounded-full border-2 border-white"
         />
@@ -61,12 +61,12 @@ export default function Header() {
         <Link href="/" className="text-white hover:text-gray-300 hover:underline">
           Home
         </Link>
-        <Link href="/blog" className="text-white hover:text-gray-300 hover:underline">
+        {/* <Link href="/blog" className="text-white hover:text-gray-300 hover:underline">
           Blog
         </Link>
         <Link href="/newspage" className="text-white hover:text-gray-300 hover:underline">
           News
-        </Link>
+        </Link> */}
         <FinancialPlanningDropdown />
         <Link href="/aboutus" className="text-white hover:text-gray-300 hover:underline">
           About Us
