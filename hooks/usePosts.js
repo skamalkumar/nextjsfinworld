@@ -72,9 +72,12 @@ export const usePosts = () => {
                 const imageName = article.name.replace('.md', '');
                 const webpImageURL = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${REPO_NAME}/${BRANCH}/content/images/${encodeURIComponent(imageName)}.webp`;
                 const jpgImageURL = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${REPO_NAME}/${BRANCH}/content/images/${encodeURIComponent(imageName)}.jpg`;
+                const jpegImageURL = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${REPO_NAME}/${BRANCH}/content/images/${encodeURIComponent(imageName)}.jpeg`;
 
                 const imageURL = await checkImageExists(webpImageURL, getHeaders()) ? webpImageURL :
                                   await checkImageExists(jpgImageURL, getHeaders()) ? jpgImageURL : null;
+                                  await checkImageExists(jpegImageURL, getHeaders()) ? jpegImageURL : null;
+
                 if (!imageURL) {
                   console.warn(`No image found for ${article.name}`);
                 } else {

@@ -5,6 +5,7 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import AuthButton from "./AuthButton";
 import FinancialPlanningDropdown from "./financialplanningdropdown";
 import SocialMediaDropdown from "./SocialMediaDropdown";
+import CoursesDropdown from "./CoursesDropdown";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -75,6 +76,7 @@ export default function Header() {
           Contact Us
         </Link>
         <SocialMediaDropdown />
+        <CoursesDropdown/>
       </nav>
 
       {/* Mobile Nav with Overlay */}
