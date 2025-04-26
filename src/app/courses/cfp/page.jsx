@@ -2,6 +2,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -128,9 +129,11 @@ export default function CFPFastTrackProgram() {
               <li><strong>Language:</strong> English (Regional mentoring support available)</li>
               <li><strong>Program Fee:</strong> ₹29,999 (including taxes & learning materials)</li>
             </ul>
-            <button className="bg-blue-700 text-white px-6 py-3 rounded-full hover:bg-blue-800 transition">
-              Enroll Now
-            </button>
+            <Link href="/enroll">
+              <button className="bg-blue-700 text-white px-6 py-3 rounded-full hover:bg-blue-800 transition">
+                    Enroll Now
+              </button>
+            </Link>
           </>
         }
       />

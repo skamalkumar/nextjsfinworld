@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const ZigzagSection = ({ image, title, content, reverse = false }) => (
   <section className={`my-16 flex flex-col md:flex-row ${reverse ? 'md:flex-row-reverse' : ''} items-center gap-8`}>
@@ -116,9 +117,11 @@ export default function MutualFundDistributorProgram() {
               <li><strong>Language:</strong> English & Hindi</li>
               <li><strong>Fee:</strong> ₹9,999 (incl. taxes)</li>
             </ul>
-            <button className="bg-blue-700 text-white px-6 py-3 rounded-full hover:bg-blue-800 transition">
-              Enroll Now
-            </button>
+            <Link href="/enroll">
+              <button className="bg-blue-700 text-white px-6 py-3 rounded-full hover:bg-blue-800 transition">
+                    Enroll Now
+              </button>
+            </Link>
           </>
         }
       />

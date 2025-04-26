@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const ZigzagSection = ({ image, title, content, reverse = false }) => (
   <section className={`my-16 flex flex-col md:flex-row ${reverse ? 'md:flex-row-reverse' : ''} items-center gap-8`}>
@@ -101,7 +102,28 @@ export default function PortfolioManagementProgram() {
         }
       />
 
-      <ZigzagSection
+<ZigzagSection
+        image="/images/courses/enroll.jpg"
+        title="Enrollment Details"
+        reverse
+        content={
+          <>
+            <ul className="list-disc ml-5 mb-4">
+              <li><strong>Duration:</strong> 30 Days</li>
+              <li><strong>Mode:</strong> Online (Live + Self-paced)</li>
+              <li><strong>Language:</strong> English & Hindi</li>
+              <li><strong>Fee:</strong> ₹9,999 (incl. taxes)</li>
+            </ul>
+            <Link href="/enroll">
+              <button className="bg-blue-700 text-white px-6 py-3 rounded-full hover:bg-blue-800 transition">
+                    Enroll Now
+              </button>
+            </Link>
+          </>
+        }
+        />
+
+      {/* <ZigzagSection
         image="/images/courses/enroll.jpg"
         title="How FinWorld Supports You"
         reverse
@@ -113,7 +135,7 @@ export default function PortfolioManagementProgram() {
             <li>Guidance for SEBI RIA/RA registration</li>
           </ul>
         }
-      />
+      /> */}
 
       <ZigzagSection
         image="/images/courses/contact.jpg"
