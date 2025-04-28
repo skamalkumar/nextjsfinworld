@@ -43,12 +43,20 @@ export default function EnrollPage() {
 
       {status ? (
         <motion.div
-          className="bg-green-100 text-green-800 p-8 rounded-2xl shadow-xl text-center text-xl font-medium"
+          className="bg-green-100 text-green-800 p-8 rounded-2xl shadow-xl text-center text-xl font-medium space-y-6"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          {status}
+          <p>{status}</p>
+          <a
+            href="https://chat.whatsapp.com/CBbHur22KwFDDKHNfcuq1G"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-full shadow-md transition"
+          >
+            👉 Join Our WhatsApp Group
+          </a>
         </motion.div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-6 bg-white p-6 rounded-2xl shadow-xl">
