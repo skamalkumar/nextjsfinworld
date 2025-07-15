@@ -89,11 +89,11 @@ const ConsultationForm = () => {
               India Office
             </h3>
             <p className="text-gray-600 text-center text-lg leading-relaxed mb-6">
-              3rd floor, Phoenix Towers, Genpact Rd, Uppal, Hyderabad, Telangana 500007
+              Plot 98, Sri Sai Apartment, Survey of India, Madhapur, Hyderabad, Telangana 500081
             </p>
             <div className="overflow-hidden rounded-lg shadow-md">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.881554795347!2d78.5616726!3d17.4105076!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb93d0b301dc47%3A0x529c1f9b96c6b663!2sPhoenix%20Towers%2C%20Genpact%20Rd%2C%20Uppal%2C%20Hyderabad%2C%20Telangana%20500007!5e0!3m2!1sen!2sin!4v1699980193405!5m2!1sen!2sin"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.676328115591!2d78.3853123!3d17.4370052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb915274e70a07%3A0x228fc7e727cf2ff0!2sPlot%2098%2C%20Sri%20Sai%20Apartment%2C%20Survey%20of%20India%2C%20Madhapur%2C%20Hyderabad%2C%20Telangana%20500081!5e0!3m2!1sen!2sin!4v1721031315019!5m2!1sen!2sin"
                 width="100%"
                 height="200"
                 style={{ border: 0 }}
