@@ -126,8 +126,7 @@ export default function CFPFastTrackProgram() {
             <ul className="list-disc ml-5 mb-4 space-y-2">
               <li><strong>Duration:</strong> 90 Days</li>
               <li><strong>Mode:</strong> 100% Online – Live Sessions with Mentor</li>
-              <li><strong>Language:</strong> English (Regional mentoring support available)</li>
-              <li><strong>Program Fee:</strong> ₹29,999 (including taxes & learning materials)</li>
+               <li><strong>Language:</strong> English, Hindi, Telugu</li>
             </ul>
             <Link href="/enroll">
               <button className="bg-blue-700 text-white px-6 py-3 rounded-full hover:bg-blue-800 transition">

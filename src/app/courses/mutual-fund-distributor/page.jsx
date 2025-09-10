@@ -114,8 +114,7 @@ export default function MutualFundDistributorProgram() {
             <ul className="list-disc ml-5 mb-4">
               <li><strong>Duration:</strong> 30 Days</li>
               <li><strong>Mode:</strong> Online (Live + Self-paced)</li>
-              <li><strong>Language:</strong> English & Hindi</li>
-              <li><strong>Fee:</strong> ₹9,999 (incl. taxes)</li>
+              <li><strong>Language:</strong> English, Hindi, Telugu</li>
             </ul>
             <Link href="/enroll">
               <button className="bg-blue-700 text-white px-6 py-3 rounded-full hover:bg-blue-800 transition">
