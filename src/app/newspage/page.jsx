@@ -25,20 +25,14 @@ const NewsPage = () => {
       const randomSearchTerm =
         searchTerms[Math.floor(Math.random() * searchTerms.length)];
 
-      const response = await axios.get(
-        "https://gnews.io/api/v4/search",
-        {
-          params: {
-            q: randomSearchTerm,
-            lang: "en",
-            max: 6,
-            sortBy: "publishedAt",
-            token: "17648c5fcf1ebe5e55bed016469ff355",
-          },
-        }
-      );
+      // ✅ NEW WORKING PROXY
+      const apiUrl = `https://gnews.io/api/v4/search?q=${encodeURIComponent(randomSearchTerm)}&lang=en&max=6&sortBy=publishedAt&token=17648c5fcf1ebe5e55bed016469ff355`;
 
-      console.log("API RESPONSE:", response.data);
+      const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(apiUrl)}`;
+
+      const response = await axios.get(proxyUrl);
+
+      console.log("DATA:", response.data);
 
       if (response.data && response.data.articles) {
         setNews(response.data.articles);
@@ -48,14 +42,7 @@ const NewsPage = () => {
 
     } catch (err) {
       console.error("ERROR:", err);
-
-      // Better error message
-      if (err.response) {
-        setError(`API Error: ${err.response.data.message}`);
-      } else {
-        setError("Network error. Try again later.");
-      }
-
+      setError("Failed to load news. Try again.");
     } finally {
       setLoading(false);
     }
@@ -74,18 +61,18 @@ const NewsPage = () => {
 
       <div className="min-h-screen p-4 bg-gradient-to-r from-green-400 to-blue-500">
 
-        <h1 className="text-3xl font-bold mb-6 text-center">
+        <h1 className="text-3xl font-bold mb-6 text-center text-white">
           Latest Finance News
         </h1>
 
-        {loading && <p className="text-center">Loading news...</p>}
+        {loading && <p className="text-center text-white">Loading news...</p>}
 
         {error && (
-          <div className="text-center text-red-600">
+          <div className="text-center text-red-200">
             <p>{error}</p>
             <button
               onClick={fetchNews}
-              className="mt-3 bg-white px-4 py-2 rounded"
+              className="mt-3 bg-white text-black px-4 py-2 rounded"
             >
               Retry
             </button>
