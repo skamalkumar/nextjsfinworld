@@ -28,6 +28,8 @@ export default function RootLayout({ children }) {
         {/* Add the favicon */}
         <link rel="icon" href="/finworld-logo.webp" />
 
+        <meta name="google-adsense-account" content="ca-pub-2924408860736006"></meta>
+
         {/* Google Analytics Script */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-TD29YBP18H" // Replace G-XXXXXXXXXX with your Measurement ID
