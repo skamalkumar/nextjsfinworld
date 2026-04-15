@@ -41,12 +41,18 @@ export default function RootLayout({ children }) {
             gtag('config', 'G-TD29YBP18H'); // Replace G-XXXXXXXXXX with your Measurement ID
           `}
         </Script>
-         <Script
+        {/* ✅ AdSense FIXED */}
+  <script
+    async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-292408860736006"
+    crossOrigin="anonymous"
+  ></script>
+         {/* <Script
     async
     src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-292408860736006"
     crossOrigin="anonymous"
     strategy="afterInteractive"
-  />
+  /> */}
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
