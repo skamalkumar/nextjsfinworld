@@ -61,7 +61,7 @@ export default function HeroSection() {
             Empower Your Financial Future with Experts You Can Trust
           </h1>
           <p className="mb-8 text-base md:text-lg leading-relaxed text-gray-300">
-            Globally recognized with SEBI, AMFI, and UK Companies House registrations. We architect personalized financial strategies to build and protect your wealth.
+Led by S. Kamal Kumar, a financial professional with over 15 years of experience in investment analysis, portfolio management, and financial planning.
           </p>
           <Link href="/contactus">
             <button className="bg-blue-600 text-white py-3 px-6 rounded-md hover:bg-blue-500 transition-all">
