@@ -80,7 +80,7 @@ Led by S. Kamal Kumar, a financial professional with over 15 years of experience
         </div>
       </section>
 
-      <section className="my-10 px-6">
+      {/* <section className="my-10 px-6">
         <h2 className="text-3xl font-bold text-center text-blue-600 mb-6">Proudly Partnered With</h2>
         <div className="relative overflow-hidden">
           <div ref={carouselRef} className="flex w-full overflow-x-auto whitespace-nowrap scrollbar-hide">
@@ -94,7 +94,7 @@ Led by S. Kamal Kumar, a financial professional with over 15 years of experience
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
     </>
   );
 }
