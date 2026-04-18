@@ -74,7 +74,7 @@ function Footer() {
           </p>
 
           <p className="text-sm text-blue-100">
-            BSE Registration No: AP01668101166717 | NSE Registration No: AP3022002931 | AMFI Registration No: ARN-102132
+            AMFI Registration No: ARN-102132
           </p>
 
           <div className="mt-4 p-4 bg-blue-700 bg-opacity-40 rounded-lg max-w-3xl mx-auto">
