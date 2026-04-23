@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   const repo = 'finworldarticles';
   const password = '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';
 
-  const url = `https://api.github.com/repos/${githubUsername}/${repo}/contents/articles/${articleId}.md`;
+  const url = `https://api.github.com/repos/${githubUsername}/${repo}/contents/articles/${articleId}.html`;
 
   try {
     const response = await axios.get(url, {
