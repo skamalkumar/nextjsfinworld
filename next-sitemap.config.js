@@ -1,24 +1,28 @@
+/** @type {import('next-sitemap').IConfig} */
 module.exports = {
   siteUrl: 'https://finworldltd.online',
   generateRobotsTxt: true,
+
   changefreq: 'daily',
   priority: 0.7,
+
   exclude: ['/404'],
-  transform: async (config, path) => {
-    if (path === '/dynamic-route') {
-      return {
-        loc: path,
-        changefreq: 'weekly',
-        priority: 0.8,
-      };
-    }
-    return {
-      loc: path,
+
+  additionalPaths: async (config) => {
+    const res = await fetch(
+      'https://api.github.com/repos/skamalkumar/finworldarticles/contents/content/articles'
+    );
+
+    const data = await res.json();
+
+    const blogPaths = data.map((file) => ({
+      loc: `/blog/${file.name.replace('.html', '')}`,
       changefreq: 'daily',
-      priority: 0.7,
-    };
+      priority: 0.8,
+    }));
+
+    return [
+      ...blogPaths,
+    ];
   },
-  additionalPaths: async (config) => [
-    { loc: '/custom-page', changefreq: 'daily', priority: 0.8 },
-  ],
 };
