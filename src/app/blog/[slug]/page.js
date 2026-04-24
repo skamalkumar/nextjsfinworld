@@ -1,102 +1,35 @@
-'use client';
-import { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
-import Link from 'next/link';
-import Head from 'next/head';
+// app/blog/[slug]/page.js
 
-const BlogPost = () => {
-  const params = useParams();
+export default async function BlogPost({ params }) {
   const { slug } = params;
-  const [postContent, setPostContent] = useState(null);
-  const [imageUrl, setImageUrl] = useState(null);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchPost = async () => {
-      try {
-        // Fetch post content from GitHub
-        const response = await fetch(
-          `https://api.github.com/repos/skamalkumar/finworldarticles/contents/content/articles/${slug}.html`
-        );
-        const postData = await response.json();
-
-        if (postData.content) {
-          // Decode HTML content from Base64 using TextDecoder for UTF-8
-          const contentArray = Uint8Array.from(atob(postData.content), (c) => c.charCodeAt(0));
-          const content = new TextDecoder("utf-8").decode(contentArray);
-          // console.log("Decoded HTML Content:", content); // Log for debugging
-          setPostContent(content);
-        } else {
-          console.error("Unexpected response format:", postData);
-        }
-
-        // Check for an image with different extensions
-        const extensions = ['.webp', '.jpg', '.png'];
-        for (const ext of extensions) {
-          // const formattedSlug = decodeURIComponent(slug);
-          const potentialUrl = `https://raw.githubusercontent.com/skamalkumar/finworldarticles/main/content/images/${slug}${ext}`;
-
-          const imageResponse = await fetch(potentialUrl);
-          if (imageResponse.ok) {
-            setImageUrl(potentialUrl);
-            break;
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching post:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (slug) {
-      fetchPost();
-    }
-  }, [slug]);
-
-  if (loading) return <p>Loading...</p>;
-
-  if (!slug || !postContent) {
-    return (
-      <div className="max-w-4xl mx-auto p-6">
-        <p>Post not found</p>
-        <Link href="/blog" className="text-blue-500 hover:underline mt-4 inline-block">
-          Back to Blog
-        </Link>
-      </div>
+  try {
+    const res = await fetch(
+      `https://raw.githubusercontent.com/skamalkumar/finworldarticles/main/content/articles/${slug}.html`,
+      { cache: "no-store" }
     );
-  }
 
-  return (
-    <article className="max-w-4xl mx-auto p-6 bg-blue-100 rounded-lg shadow-md">
-      <Head>
-        <title>{decodeURIComponent(slug)} - FinWorld</title>
-        <meta name="description" content={`Read more about ${decodeURIComponent(slug)}.`} />
-      </Head>
-      
-      <header className="text-center mb-4">
-        <h1 className="text-3xl font-bold">{decodeURIComponent(slug)}</h1>
-        {imageUrl && (
-          <img 
-            src={imageUrl} 
-            alt={decodeURIComponent(slug)} 
-            className="mb-4 mx-auto w-full max-w-md h-auto rounded-md shadow-sm" 
-          />
-        )}
-      </header>
+    if (!res.ok) {
+      return <div>Post not found</div>;
+    }
 
-      <section className="prose max-w-none text-gray-700">
-        {/* Render HTML content with dangerouslySetInnerHTML */}
-        <div dangerouslySetInnerHTML={{ __html: postContent }} />
-      </section>
-      
-      <footer className="mt-8">
-        <Link href="/blog" className="text-blue-500 hover:underline">
+    const content = await res.text();
+
+    return (
+      <article className="max-w-4xl mx-auto p-6 bg-blue-100 rounded-lg shadow-md">
+        <h1 className="text-3xl font-bold mb-4">{slug.replaceAll('-', ' ')}</h1>
+
+        <div
+          className="prose max-w-none"
+          dangerouslySetInnerHTML={{ __html: content }}
+        />
+
+        <a href="/blog" className="text-blue-500 mt-6 inline-block">
           ← Back to Blog
-        </Link>
-      </footer>
-    </article>
-  );
-};
-
-export default BlogPost;
+        </a>
+      </article>
+    );
+  } catch (error) {
+    return <div>Error loading post</div>;
+  }
+}
