@@ -16,16 +16,18 @@ export default async function BlogPost({ params }) {
     const content = await res.text();
 
     return (
-      <div className="min-h-screen">
+      <article className="max-w-4xl mx-auto p-6 bg-transparent rounded-lg shadow-md">
+        <h1 className="text-3xl font-bold mb-4">{slug.replaceAll('-', ' ')}</h1>
+
         <div
+          className="prose max-w-none"
           dangerouslySetInnerHTML={{ __html: content }}
         />
-        <div className="max-w-4xl mx-auto px-6 pb-8">
-          <a href="/blog" className="text-blue-400 inline-block">
-            ← Back to Blog
-          </a>
-        </div>
-      </div>
+
+        <a href="/blog" className="text-blue-500 mt-6 inline-block">
+          ← Back to Blog
+        </a>
+      </article>
     );
   } catch (error) {
     return <div>Error loading post</div>;
