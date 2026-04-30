@@ -13,6 +13,21 @@ function slugToTitle(slug) {
     .replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
+async function getImageUrl(slug) {
+  const extensions = [".webp", ".jpg", ".png"];
+  const base = `https://raw.githubusercontent.com/skamalkumar/finworldarticles/main/content/images/${encodeURIComponent(slug)}`;
+  
+  for (const ext of extensions) {
+    try {
+      const res = await fetch(base + ext, { method: "HEAD", next: { revalidate: 3600 } });
+      if (res.ok) return base + ext;
+    } catch {
+      continue;
+    }
+  }
+  return null;
+}
+
 export default async function BlogPage() {
   let posts = [];
 
@@ -24,16 +39,17 @@ export default async function BlogPage() {
     const data = await res.json();
 
     if (Array.isArray(data)) {
-      posts = data
+      const slugs = data
         .filter((item) => item.name.endsWith(".html"))
-        .map((item) => {
-          const slug = item.name.replace(".html", "");
-          return {
-            slug,
-            title: slugToTitle(slug),
-            imageUrl: `https://raw.githubusercontent.com/skamalkumar/finworldarticles/main/content/images/${encodeURIComponent(slug)}.webp`,
-          };
-        });
+        .map((item) => item.name.replace(".html", ""));
+
+      posts = await Promise.all(
+        slugs.map(async (slug) => ({
+          slug,
+          title: slugToTitle(slug),
+          imageUrl: await getImageUrl(slug),
+        }))
+      );
     }
   } catch (error) {
     console.error("Error fetching posts:", error);
@@ -48,12 +64,13 @@ export default async function BlogPage() {
             key={post.slug}
             className="bg-white rounded-lg shadow-md overflow-hidden transition-shadow duration-300 hover:shadow-lg"
           >
-            <img
-              src={post.imageUrl}
-              alt={post.title}
-              className="w-full h-48 object-cover"
-              onError="this.style.display='none'"
-            />
+            {post.imageUrl && (
+              <img
+                src={post.imageUrl}
+                alt={post.title}
+                className="w-full h-48 object-cover"
+              />
+            )}
             <div className="p-6">
               <h2 className="text-xl font-bold mb-2">{post.title}</h2>
               <Link
