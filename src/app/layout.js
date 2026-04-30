@@ -1,9 +1,7 @@
 import localFont from "next/font/local";
-import Script from "next/script"; // Import Script for adding analytics
+import Script from "next/script";
 import "./globals.css";
-import { AuthProvider } from "../../context/AuthContext";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import Providers from "./providers";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -18,57 +16,30 @@ const geistMono = localFont({
 
 export const metadata = {
   title: "FinWorld",
-  description: "We specialize in investment planning and insurance management, ensuring that your financial portfolio is not only optimized for growth but also safeguarded against uncertainties. From selecting the right investment avenues to securing your future with personalized insurance solutions, FinWorld offers a holistic approach to wealth management",
+  description: "We specialize in investment planning and insurance management",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        {/* Add the favicon */}
         <link rel="icon" href="/finworld-logo.webp" />
-
-        <meta name="google-adsense-account" content="ca-pub-2924408860736006"></meta>
-
-        {/* Google Analytics Script */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-TD29YBP18H" // Replace G-XXXXXXXXXX with your Measurement ID
-          strategy="afterInteractive"
-        />
+        <meta name="google-adsense-account" content="ca-pub-2924408860736006" />
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-TD29YBP18H" strategy="afterInteractive" />
         <Script id="google-analytics" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-TD29YBP18H'); // Replace G-XXXXXXXXXX with your Measurement ID
+            gtag("js", new Date());
+            gtag("config", "G-TD29YBP18H");
           `}
         </Script>
-        {/* ✅ AdSense FIXED */}
-  <script
-    async
-    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-292408860736006"
-    crossOrigin="anonymous"
-  ></script>
-         {/* <Script
-    async
-    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-292408860736006"
-    crossOrigin="anonymous"
-    strategy="afterInteractive"
-  /> */}
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-292408860736006" crossOrigin="anonymous"></script>
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
-      >
-        <AuthProvider>
-          {/* Header */}
-          <Header />
-
-          {/* Main Content */}
-          <main className="flex-grow">{children}</main>
-
-          {/* Footer */}
-          <Footer />
-        </AuthProvider>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}>
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );
