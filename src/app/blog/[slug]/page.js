@@ -1,13 +1,45 @@
 // app/blog/[slug]/page.js
 
+const BASE_URL = "https://raw.githubusercontent.com/skamalkumar/finworldarticles/main/content/articles";
+
+// Pre-build all known blog pages at build time
+export async function generateStaticParams() {
+  try {
+    const res = await fetch(
+      "https://api.github.com/repos/skamalkumar/finworldarticles/contents/content/articles"
+    );
+    const files = await res.json();
+    return files
+      .filter((f) => f.name.endsWith(".html"))
+      .map((f) => ({ slug: f.name.replace(".html", "") }));
+  } catch {
+    return [];
+  }
+}
+
+// Generate unique title & meta description per post
+export async function generateMetadata({ params }) {
+  const { slug } = params;
+  const title = slug.replaceAll("-", " ").replace(/\b\w/g, (c) => c.toUpperCase());
+
+  return {
+    title: `${title} | FinWorld`,
+    description: `Read our in-depth article on ${title}. Expert financial insights from FinWorld.`,
+    openGraph: {
+      title: `${title} | FinWorld`,
+      description: `Read our in-depth article on ${title}.`,
+    },
+  };
+}
+
+// Page component
 export default async function BlogPost({ params }) {
   const { slug } = params;
 
   try {
-    const res = await fetch(
-      `https://raw.githubusercontent.com/skamalkumar/finworldarticles/main/content/articles/${slug}.html`,
-      { cache: "no-store" }
-    );
+    const res = await fetch(`${BASE_URL}/${slug}.html`, {
+      next: { revalidate: 3600 }, // Cache for 1 hour, re-fetch if stale
+    });
 
     if (!res.ok) {
       return <div>Post not found</div>;
@@ -17,7 +49,9 @@ export default async function BlogPost({ params }) {
 
     return (
       <article className="max-w-4xl mx-auto p-6 bg-transparent rounded-lg shadow-md">
-        <h1 className="text-3xl font-bold mb-4">{slug.replaceAll('-', ' ')}</h1>
+        <h1 className="text-3xl font-bold mb-4">
+          {slug.replaceAll("-", " ").replace(/\b\w/g, (c) => c.toUpperCase())}
+        </h1>
 
         <div
           className="prose max-w-none"
