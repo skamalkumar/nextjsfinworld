@@ -1,8 +1,9 @@
 // app/blog/[slug]/page.js
 
+export const revalidate = 3600;
+
 const BASE_URL = "https://raw.githubusercontent.com/skamalkumar/finworldarticles/main/content/articles";
 
-// Pre-build all known blog pages at build time
 export async function generateStaticParams() {
   try {
     const res = await fetch(
@@ -17,33 +18,24 @@ export async function generateStaticParams() {
   }
 }
 
-// Generate unique title & meta description per post
 export async function generateMetadata({ params }) {
   const { slug } = params;
   const title = slug.replaceAll("-", " ").replace(/\b\w/g, (c) => c.toUpperCase());
-
   return {
     title: `${title} | FinWorld`,
     description: `Read our in-depth article on ${title}. Expert financial insights from FinWorld.`,
-    openGraph: {
-      title: `${title} | FinWorld`,
-      description: `Read our in-depth article on ${title}.`,
-    },
   };
 }
 
-// Page component
 export default async function BlogPost({ params }) {
   const { slug } = params;
 
   try {
     const res = await fetch(`${BASE_URL}/${slug}.html`, {
-      next: { revalidate: 3600 }, // Cache for 1 hour, re-fetch if stale
+      next: { revalidate: 3600 },
     });
 
-    if (!res.ok) {
-      return <div>Post not found</div>;
-    }
+    if (!res.ok) return <div>Post not found</div>;
 
     const content = await res.text();
 
@@ -52,15 +44,8 @@ export default async function BlogPost({ params }) {
         <h1 className="text-3xl font-bold mb-4">
           {slug.replaceAll("-", " ").replace(/\b\w/g, (c) => c.toUpperCase())}
         </h1>
-
-        <div
-          className="prose max-w-none"
-          dangerouslySetInnerHTML={{ __html: content }}
-        />
-
-        <a href="/blog" className="text-blue-500 mt-6 inline-block">
-          ← Back to Blog
-        </a>
+        <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: content }} />
+        <a href="/blog" className="text-blue-500 mt-6 inline-block">← Back to Blog</a>
       </article>
     );
   } catch (error) {
