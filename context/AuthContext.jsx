@@ -27,7 +27,7 @@ export function AuthProvider({ children }) {
       loading, 
       isEmailVerified,
     }}>
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   );
 }
