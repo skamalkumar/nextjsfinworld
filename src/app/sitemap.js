@@ -10,7 +10,6 @@ export default async function sitemap() {
     { url: "https://www.finworldltd.online/contactus", priority: 0.8 },
     { url: "https://www.finworldltd.online/mutual-funds", priority: 0.8 },
     { url: "https://www.finworldltd.online/financialhealthscore", priority: 0.7 },
-    { url: "https://www.finworldltd.online/funda", priority: 0.7 },
     { url: "https://www.finworldltd.online/financialplanning/investmentplanning", priority: 0.7 },
     { url: "https://www.finworldltd.online/financialplanning/taxplanning", priority: 0.7 },
     { url: "https://www.finworldltd.online/financialplanning/willplanning", priority: 0.7 },
