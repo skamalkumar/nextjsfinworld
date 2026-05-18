@@ -16,7 +16,11 @@ const geistMono = localFont({
 
 export const metadata = {
   title: "FinWorld",
-  description: "We specialize in investment planning and insurance management",
+  description: "We specialize in investment research, portfolio strategies, and wealth management",
+  metadataBase: new URL('https://www.finworldltd.online'),
+  alternates: {
+    canonical: '/',
+  },
 };
 
 export default function RootLayout({ children }) {
