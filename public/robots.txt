@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://finworldltd.online
+Host: https://www.finworldltd.online
 
 # Sitemaps
-Sitemap: https://finworldltd.online/sitemap.xml
+Sitemap: https://www.finworldltd.online/sitemap.xml
